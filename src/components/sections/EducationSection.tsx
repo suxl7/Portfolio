@@ -6,11 +6,10 @@ import { GraduationCap, BookOpen, Award, Calendar, MapPin } from "lucide-react";
 const education = [
   {
     id: 1,
-    degree: "Bachelor of Engineering in Computer Engineering",
-    institution: "Visvesvaraya Technological University",
-    location: "Bangalore, India",
-    period: "2020 – 2024",
-    gpa: "8.5/10",
+    degree: "Bachelor of Engineering in Computer",
+    institution: "National Academy of Science and Technology",
+    location: "Dhangadhi, Kailali",
+    period: "2021 – 2026",
     status: "Completed",
     description: "Comprehensive computer engineering program covering software development, algorithms, systems programming, and emerging technologies.",
     coursework: [
@@ -18,23 +17,18 @@ const education = [
       "Database Management Systems",
       "Computer Networks",
       "Operating Systems",
-      "Software Engineering",
+      "Object Oriented in Software Engineering",
       "Web Technologies",
       "Machine Learning",
-      "Cybersecurity Fundamentals",
+      "Cloud Computing",
+      "Artificial Intelligence",
     ],
-    achievements: [
-      "Dean's List for Academic Excellence (2022, 2023)",
-      "Led college coding club with 50+ members",
-      "Published research paper in IEEE conference",
-      "Won inter-college hackathon twice",
-    ],
+    
     color: "#3b82f6",
   },
 ];
 
 const achievements = [
-  { value: "8.5", label: "GPA", suffix: "/10" },
   { value: "30+", label: "Courses Completed", suffix: "" },
   { value: "4", label: "Years", suffix: " Program" },
   { value: "3", label: "Major Projects", suffix: "" },
@@ -126,7 +120,7 @@ export function EducationSection() {
                       className="px-3 py-1 rounded-full text-xs font-semibold"
                       style={{ background: `${edu.color}15`, color: edu.color }}
                     >
-                      GPA: {edu.gpa}
+                     
                     </span>
                     <span className="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
                       {edu.status}
@@ -154,26 +148,7 @@ export function EducationSection() {
                 </div>
 
                 {/* Achievements */}
-                <div>
-                  <h4 className="flex items-center gap-2 text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-3">
-                    <Award className="w-4 h-4" /> Notable Achievements
-                  </h4>
-                  <ul className="grid sm:grid-cols-2 gap-2">
-                    {edu.achievements.map((achievement, j) => (
-                      <motion.li
-                        key={j}
-                        className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400"
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: j * 0.05 }}
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ background: edu.color }} />
-                        {achievement}
-                      </motion.li>
-                    ))}
-                  </ul>
-                </div>
+                
               </div>
 
               {/* Hover glow */}

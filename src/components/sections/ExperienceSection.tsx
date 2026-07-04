@@ -23,7 +23,7 @@ const experiences = [
       "Created detailed security audit reports with remediation recommendations",
       "Learned industry-standard security frameworks (NIST, ISO 27001)",
     ],
-    skills: ["Threat Analysis", "Incident Response", "Security Auditing", "NIST Framework", "Report Writing"],
+    skills: ["Threat Analysis", "Incident Response", "Security Auditing", "Report Writing"],
   },
   {
     id: 2,
@@ -37,54 +37,16 @@ const experiences = [
     description:
       "Developed multiple full-stack web applications as part of academic curriculum and personal learning, applying modern development practices.",
     highlights: [
-      "Built a secure password manager with AES-256 encryption and 2FA",
-      "Developed a cloud infrastructure dashboard integrating AWS APIs",
+    
+      
       "Created a developer portfolio builder with 3D animations",
-      "Implemented RESTful APIs with Node.js and Express",
-      "Deployed applications on AWS EC2 and Vercel",
+      "Implemented RESTful APIs with Python Django",
+      "Deployed applications on Vercel",
     ],
-    skills: ["React", "Node.js", "AWS", "PostgreSQL", "Docker"],
+    skills: ["React", "Vercel", "PostgreSQL", "Python Django" , "Postman" ]
   },
-  {
-    id: 3,
-    title: "Technical Lead – College Tech Club",
-    company: "College Tech Society",
-    type: "Leadership",
-    period: "2022 – 2023",
-    duration: "1 year",
-    icon: Users,
-    color: "#10b981",
-    description:
-      "Led the technical team of the college technology society, organizing workshops, hackathons, and technical events.",
-    highlights: [
-      "Organized 3 hackathons with 100+ participants each",
-      "Conducted workshops on web development, cybersecurity, and cloud computing",
-      "Mentored 20+ junior students in programming and project development",
-      "Managed the society's website and social media presence",
-      "Collaborated with industry professionals for guest lectures",
-    ],
-    skills: ["Leadership", "Event Management", "Mentoring", "Public Speaking", "Team Coordination"],
-  },
-  {
-    id: 4,
-    title: "AWS Cloud Practitioner Certification",
-    company: "Amazon Web Services",
-    type: "Certification",
-    period: "2022",
-    duration: "3 months prep",
-    icon: Award,
-    color: "#f59e0b",
-    description:
-      "Achieved AWS Certified Cloud Practitioner certification, demonstrating foundational knowledge of AWS cloud services and architecture.",
-    highlights: [
-      "Mastered core AWS services: EC2, S3, RDS, Lambda, VPC",
-      "Understood AWS security model and shared responsibility",
-      "Learned cloud economics and pricing models",
-      "Studied AWS Well-Architected Framework",
-      "Passed the certification exam with a high score",
-    ],
-    skills: ["AWS EC2", "AWS S3", "AWS IAM", "Cloud Architecture", "Security"],
-  },
+  
+ 
 ];
 
 export function ExperienceSection() {

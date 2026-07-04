@@ -56,17 +56,18 @@ const values = [
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-28 px-6 relative overflow-hidden">
+    <section id="about" className="relative overflow-hidden" style={{ padding: "7rem 1.5rem" }}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center"
+          style={{ marginBottom: "5rem" }}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <span className="inline-block text-sm font-mono text-blue-400 mb-4 tracking-widest uppercase">
+          <span className="inline-block text-sm font-mono text-blue-400 tracking-widest uppercase" style={{ marginBottom: "1rem", display: "block" }}>
             01. About Me
           </span>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-zinc-900 dark:text-white">
@@ -75,16 +76,17 @@ export function AboutSection() {
           </h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start mb-20">
+        <div className="grid lg:grid-cols-2 items-start" style={{ gap: "4rem", marginBottom: "5rem" }}>
           {/* Bio */}
           <motion.div
-            className="space-y-6"
+            className="flex flex-col"
+            style={{ gap: "1.5rem" }}
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <div className="space-y-4 text-zinc-600 dark:text-zinc-300 leading-relaxed">
+            <div className="flex flex-col text-zinc-600 dark:text-zinc-300" style={{ gap: "1rem", lineHeight: 1.7 }}>
               <p className="text-lg">
                 I&apos;m <strong className="text-zinc-900 dark:text-white">Sushil</strong>, a passionate Computer Engineering
                 graduate with a deep interest in building secure, scalable, and beautiful digital solutions.
@@ -103,7 +105,8 @@ export function AboutSection() {
 
             {/* Career Goal */}
             <motion.div
-              className="p-6 rounded-2xl glass border border-blue-500/20 relative overflow-hidden"
+              className="rounded-2xl glass border border-blue-500/20 relative overflow-hidden"
+              style={{ padding: "1.5rem" }}
               whileHover={{ scale: 1.01 }}
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl" />
@@ -112,8 +115,8 @@ export function AboutSection() {
                   <Target className="w-5 h-5 text-blue-400" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-zinc-900 dark:text-white mb-1">Career Goal</h4>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                  <h4 className="font-bold text-zinc-900 dark:text-white" style={{ marginBottom: "0.25rem", lineHeight: 1.3 }}>Career Goal</h4>
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400" style={{ lineHeight: 1.6 }}>
                     To become a well-rounded software engineer who builds impactful products while
                     contributing to a safer digital world through cybersecurity expertise.
                   </p>
@@ -123,21 +126,21 @@ export function AboutSection() {
 
             {/* Interests */}
             <div>
-              <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-4">Interests & Passions</h3>
+              <h3 className="text-lg font-bold text-zinc-900 dark:text-white" style={{ marginBottom: "1rem" }}>Interests & Passions</h3>
               <div className="flex flex-wrap gap-3">
                 {interests.map((item, i) => (
                   <motion.div
                     key={item.label}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl glass border text-sm font-medium"
-                    style={{ borderColor: `${item.color}30`, color: item.color }}
+                    className="flex items-center gap-2 rounded-xl glass border text-sm font-medium"
+                    style={{ borderColor: `${item.color}30`, color: item.color, padding: "0.5rem 0.75rem", lineHeight: 1 }}
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.08 }}
                     whileHover={{ scale: 1.05, y: -2 }}
                   >
-                    <item.icon className="w-4 h-4" />
-                    {item.label}
+                    <item.icon className="w-4 h-4 shrink-0" />
+                    <span style={{ lineHeight: 1 }}>{item.label}</span>
                   </motion.div>
                 ))}
               </div>
@@ -146,38 +149,40 @@ export function AboutSection() {
 
           {/* Values */}
           <motion.div
-            className="space-y-6"
+            className="flex flex-col"
+            style={{ gap: "1.5rem" }}
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
             <h3 className="text-2xl font-bold text-zinc-900 dark:text-white">Work Philosophy</h3>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2" style={{ gap: "1rem" }}>
               {values.map((v, i) => (
                 <motion.div
                   key={v.title}
-                  className="p-5 rounded-2xl glass border border-zinc-200/50 dark:border-zinc-700/50 group hover:border-blue-500/30 transition-colors"
+                  className="rounded-2xl glass border border-zinc-200/50 dark:border-zinc-700/50 group hover:border-blue-500/30 transition-colors"
+                  style={{ padding: "1.25rem" }}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                   whileHover={{ y: -4 }}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500/20 to-purple-500/20 mb-3 flex items-center justify-center">
-                    <span className="text-blue-400 font-bold text-sm">0{i + 1}</span>
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center" style={{ marginBottom: "0.75rem" }}>
+                    <span className="text-blue-400 font-bold text-sm" style={{ lineHeight: 1 }}>0{i + 1}</span>
                   </div>
-                  <h4 className="font-bold text-zinc-900 dark:text-white text-sm mb-1 group-hover:text-blue-400 transition-colors">
+                  <h4 className="font-bold text-zinc-900 dark:text-white text-sm group-hover:text-blue-400 transition-colors" style={{ marginBottom: "0.25rem", lineHeight: 1.3 }}>
                     {v.title}
                   </h4>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">{v.desc}</p>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400" style={{ lineHeight: 1.6 }}>{v.desc}</p>
                 </motion.div>
               ))}
             </div>
 
             {/* Quick facts */}
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 dark:from-zinc-900 dark:to-[#0a0a1a] border border-zinc-700/50">
-              <h4 className="text-white font-bold mb-4 font-mono text-sm">
+            <div className="rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 dark:from-zinc-900 dark:to-[#0a0a1a] border border-zinc-700/50" style={{ padding: "1.5rem" }}>
+              <h4 className="text-white font-bold font-mono text-sm" style={{ marginBottom: "1rem", lineHeight: 1 }}>
                 <span className="text-green-400">const</span>{" "}
                 <span className="text-blue-400">sushil</span>{" "}
                 <span className="text-white">=</span>{" "}
@@ -189,7 +194,7 @@ export function AboutSection() {
                 { key: "focus", value: '["Web Dev", "Security", "Cloud"]', color: "text-yellow-300" },
                 { key: "available", value: "true", color: "text-blue-300" },
               ].map((item) => (
-                <div key={item.key} className="flex gap-2 text-sm font-mono ml-4 mb-1">
+                <div key={item.key} className="flex gap-2 text-sm font-mono" style={{ marginLeft: "1rem", marginBottom: "0.25rem", lineHeight: 1.6 }}>
                   <span className="text-purple-300">{item.key}</span>
                   <span className="text-zinc-500">:</span>
                   <span className={item.color}>{item.value}</span>
@@ -208,14 +213,14 @@ export function AboutSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <h3 className="text-2xl font-bold text-zinc-900 dark:text-white mb-10 text-center">
+          <h3 className="text-2xl font-bold text-zinc-900 dark:text-white text-center" style={{ marginBottom: "2.5rem" }}>
             Education & Milestones
           </h3>
           <div className="relative">
             {/* Timeline line */}
             <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-blue-500 via-purple-500 to-cyan-500 opacity-30 md:-translate-x-px" />
 
-            <div className="space-y-8">
+            <div className="flex flex-col" style={{ gap: "2rem" }}>
               {timeline.map((item, i) => (
                 <motion.div
                   key={item.title}
@@ -228,15 +233,16 @@ export function AboutSection() {
                   {/* Content */}
                   <div className={`md:w-1/2 ${i % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"} pl-14 md:pl-0`}>
                     <motion.div
-                      className="p-5 rounded-2xl glass border border-zinc-200/50 dark:border-zinc-700/50 hover:border-blue-500/30 transition-colors group"
+                      className="rounded-2xl glass border border-zinc-200/50 dark:border-zinc-700/50 hover:border-blue-500/30 transition-colors group"
+                      style={{ padding: "1.25rem" }}
                       whileHover={{ scale: 1.01, y: -2 }}
                     >
-                      <span className="text-xs font-mono text-blue-400 mb-1 block">{item.year}</span>
-                      <h4 className="font-bold text-zinc-900 dark:text-white group-hover:text-blue-400 transition-colors">
+                      <span className="text-xs font-mono text-blue-400 block" style={{ marginBottom: "0.25rem", lineHeight: 1 }}>{item.year}</span>
+                      <h4 className="font-bold text-zinc-900 dark:text-white group-hover:text-blue-400 transition-colors" style={{ lineHeight: 1.3 }}>
                         {item.title}
                       </h4>
-                      <p className="text-sm text-zinc-500 mb-2">{item.institution}</p>
-                      <p className="text-sm text-zinc-600 dark:text-zinc-400">{item.description}</p>
+                      <p className="text-sm text-zinc-500" style={{ marginBottom: "0.5rem", lineHeight: 1.4 }}>{item.institution}</p>
+                      <p className="text-sm text-zinc-600 dark:text-zinc-400" style={{ lineHeight: 1.6 }}>{item.description}</p>
                     </motion.div>
                   </div>
 

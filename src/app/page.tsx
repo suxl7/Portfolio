@@ -151,9 +151,9 @@ export default function Home() {
                   <div className="grid grid-cols-2 gap-6 pt-6 border-t border-zinc-200 dark:border-zinc-800">
                     {[
                       { value: "3+", label: "Years Experience" },
-                      { value: "25+", label: "Projects Completed" },
-                      { value: "15+", label: "Technologies" },
-                      { value: "8+", label: "Open Source" },
+                      { value: "5", label: "Projects Completed" },
+                      { value: "10+", label: "Technologies" },
+              
                     ].map((stat, i) => (
                       <motion.div
                         key={i}
@@ -176,8 +176,8 @@ export default function Home() {
                     {[
                       { title: "Frontend Development", desc: "Building responsive, accessible UIs with React, Next.js, TypeScript, and Tailwind CSS", icon: <Code className="w-6 h-6" />, color: "#3b82f6" },
                       { title: "Backend Development", desc: "Designing RESTful APIs and microservices with Node.js, Python, and databases", icon: <Server className="w-6 h-6" />, color: "#10b981" },
-                      { title: "DevOps & Cloud", desc: "Deploying and scaling applications on AWS, Vercel, Docker, and CI/CD pipelines", icon: <Cloud className="w-6 h-6" />, color: "#8b5cf6" },
-                      { title: "Open Source", desc: "Contributing to open-source projects and building developer tools", icon: <Globe className="w-6 h-6" />, color: "#f59e0b" },
+                     
+                      
                     ].map((item, i) => (
                       <motion.div
                         key={i}
@@ -337,8 +337,8 @@ export default function Home() {
                     viewport={{ once: true }}
                     transition={{ delay: 0.4 }}
                   >
-                    <SocialButton href="https://github.com/sushilsth" icon={Github} label="GitHub" color="#8b5cf6" />
-                    <SocialButton href="https://linkedin.com/in/sushilsth" icon={Linkedin} label="LinkedIn" color="#0077b5" />
+                    <SocialButton href="https://github.com/suxl7" icon={Github} label="GitHub" color="#8b5cf6" />
+                    <SocialButton href="https://www.linkedin.com/in/sushil-chaudhary-31baa0328/" icon={Linkedin} label="LinkedIn" color="#0077b5" />
                     <SocialButton href="https://twitter.com/sushilsth" icon={Twitter} label="Twitter" color="#1da1f2" />
                   </motion.div>
                 </div>

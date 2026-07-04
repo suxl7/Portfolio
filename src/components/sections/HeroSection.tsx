@@ -1,52 +1,30 @@
 "use client";
 
 import { useEffect, useState, useRef, memo } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Download, Mail, ChevronDown, Code, Briefcase, Share2 } from "lucide-react";
-
-
-const GithubIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-  </svg>
-);
-
-const LinkedinIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-  </svg>
-);
-const GmailIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M2 6.5C2 5.67 2.67 5 3.5 5h17C21.33 5 22 5.67 22 6.5v11c0 .83-.67 1.5-1.5 1.5h-17C2.67 19 2 18.33 2 17.5V6.5Z" fill="white"/>
-    <path d="M2 6.5L12 13.5 22 6.5V5.5L12 12.5 2 5.5V6.5Z" fill="#EA4335"/>
-    <path d="M2 6.5V17.5L7.5 12 2 6.5Z" fill="#34A853"/>
-    <path d="M22 6.5V17.5L16.5 12 22 6.5Z" fill="#FBBC05"/>
-    <path d="M7.5 12L2 17.5H22L16.5 12L12 15.5 7.5 12Z" fill="#4285F4"/>
-  </svg>
-);
+import { Download, Mail, ChevronDown } from "lucide-react";
 
 const roles = [
   "Aspiring Software Developer",
-  "Cybersecurity Enthusiast",
   "Full Stack Developer",
   "Cloud Computing Learner",
 ];
 const socialLinks = [
   {
-    icon: GithubIcon,
+    icon: "/icons/github.png",
     href: "https://github.com/suxl7",
     label: "GitHub",
-    color: "#8b5cf6",
+    color: "#e8e6ee",
   },
   {
-    icon: LinkedinIcon,
+    icon: "/icons/linkedin.png",
     href: "https://www.linkedin.com/in/sushil-chaudhary-31baa0328/",
     label: "LinkedIn",
     color: "#0077b5",
   },
   {
-    icon: GmailIcon,
+    icon: "/icons/gmail.png",
     href: "mailto:chysushil34@gmail.com",
     label: "Email",
     color: "#06b6d4",
@@ -227,19 +205,21 @@ function HolographicAvatar() {
       </motion.div>
 
       {[
-        { label: "React",    x: "-20%", y: "15%", color: "#61dafb" },
-        { label: "AWS",      x: "85%",  y: "20%", color: "#ff9900" },
-        { label: "Python",   x: "-15%", y: "75%", color: "#3776ab" },
-        { label: "Security", x: "80%",  y: "70%", color: "#ef4444" },
+        { icon: "/icons/icons8-aws-512.png",         x: "80%",  y: "10%", color: "#ff9900", label: "AWS" },
+        { icon: "/icons/python.png",                  x: "-8%", y: "72%", color: "#3776ab", label: "Python" },
+        { icon: "/icons/postgre.png",                 x: "78%",  y: "87%", color: "#336791", label: "PostgreSQL" },
+        { icon: "/icons/icons8-google-cloud-512.png", x: "-9%", y: "18%", color: "#4285f4", label: "GCloud" },
+        { icon: "/icons/icons8-react-native-512.png",         x: "91%",  y: "50%", color: "#297da1", label: "React" },
+
       ].map((badge, i) => (
         <motion.div
           key={badge.label}
-          className="absolute px-2 py-1 rounded-lg text-xs font-bold glass border"
-          style={{ left: badge.x, top: badge.y, color: badge.color, borderColor: `${badge.color}40`, background: `${badge.color}10` }}
+          className="absolute rounded-xl glass border p-1.5"
+          style={{ left: badge.x, top: badge.y, borderColor: `${badge.color}40`, background: `${badge.color}15` }}
           animate={{ y: [0, -6, 0] }}
           transition={{ duration: 2.5 + i * 0.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
         >
-          {badge.label}
+          <Image src={badge.icon} alt={badge.label} width={28} height={28} />
         </motion.div>
       ))}
     </div>
@@ -298,23 +278,25 @@ export function HeroSection() {
               <motion.a
                 href="/resume.pdf"
                 download
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-shadow"
+                className="inline-flex items-center justify-center gap-2 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-shadow"
+                style={{ padding: "0.75rem 1.5rem", lineHeight: 1 }}
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 data-cursor-hover
               >
-                <Download className="w-4 h-4" />
-                Download CV
+                <Download className="w-4 h-4 shrink-0" />
+                <span style={{ lineHeight: 1 }}>Download CV</span>
               </motion.a>
               <motion.button
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-zinc-900 dark:text-zinc-100 border-2 border-zinc-300 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-blue-500 transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-xl font-semibold text-zinc-900 dark:text-zinc-100 border-2 border-zinc-300 dark:border-zinc-700 hover:border-blue-500 dark:hover:border-blue-500 transition-colors"
+                style={{ padding: "0.75rem 1.5rem", lineHeight: 1 }}
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 data-cursor-hover
               >
-                <Mail className="w-4 h-4" />
-                Contact Me
+                <Mail className="w-4 h-4 shrink-0" />
+                <span style={{ lineHeight: 1 }}>Contact Me</span>
               </motion.button>
             </div>
 
@@ -330,12 +312,12 @@ export function HeroSection() {
                     rel="noopener noreferrer"
                     aria-label={s.label}
                     className="w-10 h-10 shrink-0 rounded-xl flex items-center justify-center glass border transition-colors social-link"
-                    style={{ borderColor: `${s.color}30`, color: s.color }}
+                    style={{ borderColor: `${s.color}30` }}
                     whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                     data-cursor-hover
                   >
-                    <s.icon className="w-4 h-4 shrink-0" />
+                    <Image src={s.icon} alt={s.label} width={20} height={20} className="shrink-0" />
                   </motion.a>
                 ))}
               </div>
