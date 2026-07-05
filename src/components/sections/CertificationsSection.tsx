@@ -6,18 +6,6 @@ import { Award, ExternalLink, Download, BadgeCheck } from "lucide-react";
 const certifications = [
   {
     id: 1,
-    title: "AWS Certified Cloud Practitioner",
-    issuer: "Amazon Web Services",
-    date: "2022",
-    credentialId: "Replace with your credential ID",
-    verifyUrl: "https://aws.amazon.com/verification",
-    downloadUrl: "/certificates/aws-cloud-practitioner.pdf",
-    color: "#f59e0b",
-    logo: "☁️",
-    skills: ["Cloud Computing", "AWS Services", "Security", "Pricing"],
-  },
-  {
-    id: 2,
     title: "Deloitte Cyber Security Virtual Internship",
     issuer: "Deloitte",
     date: "2023",
@@ -27,54 +15,6 @@ const certifications = [
     color: "#ef4444",
     logo: "🛡️",
     skills: ["Threat Analysis", "Security Auditing", "Incident Response"],
-  },
-  {
-    id: 3,
-    title: "MongoDB Database Administrator",
-    issuer: "MongoDB University",
-    date: "2023",
-    credentialId: "Replace with your credential ID",
-    verifyUrl: "https://university.mongodb.com/verify",
-    downloadUrl: "/certificates/mongodb-dba.pdf",
-    color: "#10b981",
-    logo: "🍃",
-    skills: ["NoSQL", "Database Design", "Aggregation", "Indexing"],
-  },
-  {
-    id: 4,
-    title: "Meta Front-End Developer Professional Certificate",
-    issuer: "Meta (Coursera)",
-    date: "2023",
-    credentialId: "Replace with your credential ID",
-    verifyUrl: "https://coursera.org/verify",
-    downloadUrl: "/certificates/meta-frontend.pdf",
-    color: "#3b82f6",
-    logo: "⚛️",
-    skills: ["React", "JavaScript", "Responsive Design", "Git"],
-  },
-  {
-    id: 5,
-    title: "Google Cybersecurity Professional Certificate",
-    issuer: "Google (Coursera)",
-    date: "2023",
-    credentialId: "Replace with your credential ID",
-    verifyUrl: "https://coursera.org/verify",
-    downloadUrl: "/certificates/google-cybersecurity.pdf",
-    color: "#8b5cf6",
-    logo: "🔐",
-    skills: ["Security Operations", "Network Security", "Linux", "Python"],
-  },
-  {
-    id: 6,
-    title: "Python for Data Science",
-    issuer: "IBM (Coursera)",
-    date: "2022",
-    credentialId: "Replace with your credential ID",
-    verifyUrl: "https://coursera.org/verify",
-    downloadUrl: "/certificates/ibm-python.pdf",
-    color: "#06b6d4",
-    logo: "🐍",
-    skills: ["Python", "Pandas", "NumPy", "Data Visualization"],
   },
 ];
 
@@ -203,7 +143,7 @@ export function CertificationsSection() {
           <div className="inline-flex items-center gap-3 glass border border-zinc-200/50 dark:border-zinc-700/50 rounded-full px-6 py-3">
             <Award className="w-5 h-5 text-yellow-500" />
             <span className="text-sm text-zinc-600 dark:text-zinc-400">
-              <span className="font-bold text-zinc-900 dark:text-white">6+</span> professional certifications
+              <span className="font-bold text-zinc-900 dark:text-white">1</span> professional certification
             </span>
           </div>
         </motion.div>

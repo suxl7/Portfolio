@@ -6,21 +6,26 @@ import { OrbitControls, Html } from "@react-three/drei";
 import * as THREE from "three";
 
 const technologies = [
-  { name: "React", color: "#61dafb", orbit: 2.5, speed: 0.6 },
-  { name: "TypeScript", color: "#3178c6", orbit: 3.2, speed: 0.45 },
-  { name: "Node.js", color: "#339933", orbit: 3.8, speed: 0.35 },
-  { name: "Python", color: "#3776ab", orbit: 4.4, speed: 0.28 },
-  { name: "AWS", color: "#ff9900", orbit: 2.8, speed: 0.7 },
-  { name: "PostgreSQL", color: "#336791", orbit: 4.0, speed: 0.38 },
-  { name: "Docker", color: "#2496ed", orbit: 3.5, speed: 0.5 },
-  { name: "Next.js", color: "#a8b3cf", orbit: 2.2, speed: 0.8 },
-  { name: "Three.js", color: "#6b7280", orbit: 4.6, speed: 0.22 },
-  { name: "Git", color: "#f05032", orbit: 3.0, speed: 0.62 },
-  { name: "Figma", color: "#f24e1e", orbit: 4.2, speed: 0.3 },
-  { name: "Tailwind", color: "#06b6d4", orbit: 2.6, speed: 0.75 },
+  { name: "React",            icon: "/icons/icons8-react-native-512.png", color: "#61dafb", orbit: 2.5, speed: 0.6 },
+  { name: "TypeScript",       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg", color: "#3178c6", orbit: 3.2, speed: 0.45 },
+  { name: "Node.js",          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", color: "#339933", orbit: 3.8, speed: 0.35 },
+  { name: "Python",           icon: "/icons/python.png", color: "#3776ab", orbit: 4.4, speed: 0.28 },
+  { name: "AWS",              icon: "/icons/icons8-aws-512.png", color: "#ff9900", orbit: 2.8, speed: 0.7 },
+  { name: "PostgreSQL",       icon: "/icons/postgre.png", color: "#336791", orbit: 4.0, speed: 0.38 },
+  { name: "Docker",           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", color: "#2496ed", orbit: 3.5, speed: 0.5 },
+  { name: "Next.js",          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg", color: "#a8b3cf", orbit: 2.2, speed: 0.8 },
+  { name: "Three.js",         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg", color: "#6b7280", orbit: 4.6, speed: 0.22 },
+  { name: "Git",              icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", color: "#f05032", orbit: 3.0, speed: 0.62 },
+  { name: "Figma",            icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", color: "#f24e1e", orbit: 4.2, speed: 0.3 },
+  { name: "Tailwind",         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg", color: "#06b6d4", orbit: 2.6, speed: 0.75 },
+  { name: "GitHub",           icon: "/icons/github (1).png", color: "#e8e6ee", orbit: 3.3, speed: 0.52 },
+  { name: "Vercel",           icon: "https://assets.vercel.com/image/upload/front/favicon/vercel/180x180.png", color: "#ffffff", orbit: 4.8, speed: 0.2 },
+  { name: "DaVinci",          icon: "https://img.icons8.com/color/96/davinci-resolve.png", color: "#f4c842", orbit: 2.0, speed: 0.9 },
+  { name: "Illustrator",      icon: "https://img.icons8.com/color/96/adobe-illustrator.png", color: "#ff9a00", orbit: 3.7, speed: 0.42 },
+  { name: "ClaudeCode",       icon: "https://img.icons8.com/fluency/96/claude.png", color: "#cc785c", orbit: 4.3, speed: 0.32 },
 ];
 
-function TechNode({ name, color, orbit, speed, index }: { name: string; color: string; orbit: number; speed: number; index: number }) {
+function TechNode({ name, icon, color, orbit, speed, index }: { name: string; icon: string; color: string; orbit: number; speed: number; index: number }) {
   const ref = useRef<THREE.Group>(null);
   const angle = (index / technologies.length) * Math.PI * 2;
 
@@ -50,18 +55,23 @@ function TechNode({ name, color, orbit, speed, index }: { name: string; color: s
         distanceFactor={8}
         style={{ pointerEvents: "none", userSelect: "none" }}
       >
-        <div
-          style={{
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "22px" }}>
+          <img
+            src={icon}
+            alt={name}
+            width={28}
+            height={28}
+            style={{ filter: `drop-shadow(0 0 6px ${color})`, borderRadius: "4px" }}
+          />
+          <span style={{
             color: "#ffffff",
-            fontSize: "11px",
+            fontSize: "10px",
             fontWeight: 600,
             whiteSpace: "nowrap",
-            marginTop: "22px",
+            marginTop: "4px",
             textShadow: `0 0 8px ${color}`,
             fontFamily: "system-ui, sans-serif",
-          }}
-        >
-          {name}
+          }}>{name}</span>
         </div>
       </Html>
     </group>
@@ -151,7 +161,7 @@ export function TechStackOrbit() {
 
       <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center pointer-events-none">
         <p className="text-sm text-zinc-500 dark:text-zinc-400">
-          <span className="font-semibold text-zinc-700 dark:text-zinc-300">12+</span> technologies in orbit
+          <span className="font-semibold text-zinc-700 dark:text-zinc-300">17+</span> technologies in orbit
         </p>
         <p className="text-xs text-zinc-400 dark:text-zinc-500 font-mono">Drag to rotate · Scroll to zoom</p>
       </div>

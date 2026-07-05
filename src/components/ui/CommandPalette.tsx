@@ -12,8 +12,6 @@ const commands = [
   { id: "experience", label: "Go to Experience", section: "#experience", shortcut: "G E" },
   { id: "certifications", label: "Go to Certifications", section: "#certifications", shortcut: "G C" },
   { id: "education", label: "Go to Education", section: "#education", shortcut: "G D" },
-  { id: "blog", label: "Go to Blog", section: "#blog", shortcut: "G B" },
-  { id: "testimonials", label: "Go to Testimonials", section: "#testimonials", shortcut: "G T" },
   { id: "contact", label: "Go to Contact", section: "#contact", shortcut: "G M" },
   { id: "resume", label: "Download Resume", href: "/resume.pdf", shortcut: "D R" },
   { id: "github", label: "Open GitHub", href: "https://github.com", shortcut: "O G" },

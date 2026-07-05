@@ -10,27 +10,6 @@ const roles = [
   "Full Stack Developer",
   "Cloud Computing Learner",
 ];
-const socialLinks = [
-  {
-    icon: "/icons/github.png",
-    href: "https://github.com/suxl7",
-    label: "GitHub",
-    color: "#e8e6ee",
-  },
-  {
-    icon: "/icons/linkedin.png",
-    href: "https://www.linkedin.com/in/sushil-chaudhary-31baa0328/",
-    label: "LinkedIn",
-    color: "#0077b5",
-  },
-  {
-    icon: "/icons/gmail.png",
-    href: "mailto:chysushil34@gmail.com",
-    label: "Email",
-    color: "#06b6d4",
-  },
-];
-
 
 const stats = [
   { value: "4+",  label: "Years Learning" },
@@ -300,30 +279,7 @@ export function HeroSection() {
               </motion.button>
             </div>
 
-            {/* 6 */}
-            <div className="hero-item flex items-center gap-4">
-              <span className="text-xs text-zinc-500 uppercase tracking-wider shrink-0">Find me on</span>
-              <div className="flex items-center gap-3">
-                {socialLinks.map((s) => (
-                  <motion.a
-                    key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={s.label}
-                    className="w-10 h-10 shrink-0 rounded-xl flex items-center justify-center glass border transition-colors social-link"
-                    style={{ borderColor: `${s.color}30` }}
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    data-cursor-hover
-                  >
-                    <Image src={s.icon} alt={s.label} width={20} height={20} className="shrink-0" />
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-
-            {/* 7 */}
+{/* 7 */}
             <div className="hero-item grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-zinc-200 dark:border-zinc-800">
               {stats.map((stat) => (
                 <motion.div key={stat.label} className="text-center" whileHover={{ y: -3 }}>

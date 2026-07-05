@@ -7,7 +7,7 @@ import { AnimatedSection, AnimatedDiv } from "@/components/AnimatedSection";
 import { SkillCard3D } from "@/components/SkillCard3D";
 import { Starfield } from "@/components/Starfield";
 import { MagneticButton, SocialButton } from "@/components/MagneticButton";
-import { Mail, MapPin, Code, Server, Cloud, Globe } from "lucide-react";
+import { Mail, MapPin, Code, Server, Cloud, Globe, Palette } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
@@ -15,8 +15,6 @@ import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { ExperienceSection } from "@/components/sections/ExperienceSection";
 import { CertificationsSection } from "@/components/sections/CertificationsSection";
 import { EducationSection } from "@/components/sections/EducationSection";
-import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
-import { BlogSection } from "@/components/sections/BlogSection";
 import { TechStackOrbit } from "@/components/three/TechStackOrbit";
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
 import { CustomCursor } from "@/components/ui/CustomCursor";
@@ -29,17 +27,11 @@ const Github = ({ className, style, ...props }: React.SVGProps<SVGSVGElement>) =
   </svg>
 );
 
-const Linkedin = ({ className, style, ...props }: React.SVGProps<SVGSVGElement>) => (
-  <svg className={className} style={style} viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-  </svg>
-);
 
-const Twitter = ({ className, style, ...props }: React.SVGProps<SVGSVGElement>) => (
-  <svg className={className} style={style} viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 9.751h-3.304l-7.15-8.256-7.15 8.256h-3.31l7.228-8.256L.78 2.25h3.308l7.15 8.256L18.244 2.25zM5.751 17.243l-1.89-2.18h3.31l1.89 2.18h-3.31zm12.508 0l1.89-2.18h-3.31l-1.89 2.18h3.31z" />
-  </svg>
-);
+
+
+
+
 
 const skillCards = [
   {
@@ -74,12 +66,21 @@ const skillCards = [
     icon: <Globe className="w-6 h-6" />,
     index: 3,
   },
+  {
+    title: "Creative & Design",
+    description: "Crafting visual content and video productions with industry-standard creative tools",
+    skills: ["Adobe Illustrator", "DaVinci Resolve", "Graphic Design", "Video Editing", "Logo Design", "Motion Graphics"],
+    color: "#ec4899",
+    icon: <Palette className="w-6 h-6" />,
+    index: 4,
+  },
 ];
 
 const contactItems = [
-  { icon: Mail, label: "Email", value: "sushil@yourdomain.com", href: "mailto:sushil@yourdomain.com", color: "#3b82f6" },
-  { icon: MapPin, label: "Location", value: "Bangalore, India", href: null, color: "#10b981" },
-  { icon: Github, label: "GitHub", value: "github.com/sushilsth", href: "https://github.com/sushilsth", color: "#8b5cf6" },
+  { icon: Mail, label: "Email", value: "chysushil34@gmail.com", href: "mailto:sushil@yourdomain.com", color: "#3b82f6" },
+  { icon: MapPin, label: "Location", value: "Godawari-1, Attariya Kailali", href: null, color: "#10b981" },
+  { icon: Github, label: "GitHub", value: "github.com/suxl7", href: "https://github.com/suxl7", color: "#8b5cf6" },
+ 
 ];
 
 export default function Home() {
@@ -176,6 +177,7 @@ export default function Home() {
                     {[
                       { title: "Frontend Development", desc: "Building responsive, accessible UIs with React, Next.js, TypeScript, and Tailwind CSS", icon: <Code className="w-6 h-6" />, color: "#3b82f6" },
                       { title: "Backend Development", desc: "Designing RESTful APIs and microservices with Node.js, Python, and databases", icon: <Server className="w-6 h-6" />, color: "#10b981" },
+                      { title: "Creative & Design", desc: "Graphic designing and video editing using Adobe Illustrator and DaVinci Resolve", icon: <Palette className="w-6 h-6" />, color: "#ec4899" },
                      
                       
                     ].map((item, i) => (
@@ -264,12 +266,6 @@ export default function Home() {
           {/* Education Section */}
           <EducationSection />
 
-          {/* Testimonials Section */}
-          <TestimonialsSection />
-
-          {/* Blog Section */}
-          <BlogSection />
-
           {/* Contact Section */}
           <AnimatedSection id="contact" variant="slide-up" className="section-py bg-white dark:bg-zinc-950 relative">
             <div className="section-container">
@@ -282,7 +278,7 @@ export default function Home() {
                   transition={{ duration: 0.5 }}
                 >
                   Contact
-                </motion.span>
+                </motion.span>z
                 <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-zinc-900 dark:text-zinc-100">
                   Let&apos;s <span className="text-blue-600 dark:text-blue-400">Work Together</span>
                 </h2>
@@ -337,9 +333,7 @@ export default function Home() {
                     viewport={{ once: true }}
                     transition={{ delay: 0.4 }}
                   >
-                    <SocialButton href="https://github.com/suxl7" icon={Github} label="GitHub" color="#8b5cf6" />
-                    <SocialButton href="https://www.linkedin.com/in/sushil-chaudhary-31baa0328/" icon={Linkedin} label="LinkedIn" color="#0077b5" />
-                    <SocialButton href="https://twitter.com/sushilsth" icon={Twitter} label="Twitter" color="#1da1f2" />
+                    
                   </motion.div>
                 </div>
                 <form className="relative bg-zinc-50 dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-6 sm:p-8 space-y-6" onSubmit={(e) => e.preventDefault()}>
