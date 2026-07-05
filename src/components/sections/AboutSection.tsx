@@ -86,22 +86,24 @@ export function AboutSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <div className="flex flex-col text-zinc-600 dark:text-zinc-300" style={{ gap: "1rem", lineHeight: 1.7 }}>
-              <p className="text-lg">
-                I&apos;m <strong className="text-zinc-900 dark:text-white">Sushil</strong>, a passionate Computer Engineering
-                graduate with a deep interest in building secure, scalable, and beautiful digital solutions.
-              </p>
-              <p>
-                My journey spans full-stack web development, cybersecurity, cloud computing, and graphics design.
-                I believe in the power of technology to solve real-world problems and I&apos;m constantly pushing
-                myself to learn and grow.
-              </p>
-              <p>
-                When I&apos;m not coding, you&apos;ll find me exploring new security vulnerabilities, contributing to
-                open-source projects, editing videos, or designing graphics. I thrive at the intersection of
-                creativity and engineering.
-              </p>
-            </div>
+            <div className="justify-text text-zinc-600 dark:text-zinc-300 space-y-6 leading-8">
+  <p className="text-lg">
+    I&apos;m <strong className="text-zinc-900 dark:text-white">Sushil</strong>, a passionate Computer Engineering
+    graduate with a deep interest in building secure, scalable, and beautiful digital solutions.
+  </p>
+
+  <p>
+    My journey spans full-stack web development, cybersecurity, cloud computing, and graphics design.
+    I believe in the power of technology to solve real-world problems and I&apos;m constantly pushing
+    myself to learn and grow.
+  </p>
+
+  <p>
+    When I&apos;m not coding, you&apos;ll find me exploring new security vulnerabilities, contributing to
+    open-source projects, editing videos, or designing graphics. I thrive at the intersection of
+    creativity and engineering.
+  </p>
+</div>
 
             {/* Career Goal */}
             <motion.div
@@ -180,29 +182,7 @@ export function AboutSection() {
               ))}
             </div>
 
-            {/* Quick facts */}
-            <div className="rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-800 dark:from-zinc-900 dark:to-[#0a0a1a] border border-zinc-700/50" style={{ padding: "1.5rem" }}>
-              <h4 className="text-white font-bold font-mono text-sm" style={{ marginBottom: "1rem", lineHeight: 1 }}>
-                <span className="text-green-400">const</span>{" "}
-                <span className="text-blue-400">sushil</span>{" "}
-                <span className="text-white">=</span>{" "}
-                <span className="text-yellow-400">{"{"}</span>
-              </h4>
-              {[
-                { key: "location", value: '"Bangalore, India"', color: "text-green-300" },
-                { key: "education", value: '"B.E. Computer Engineering"', color: "text-green-300" },
-                { key: "focus", value: '["Web Dev", "Security", "Cloud"]', color: "text-yellow-300" },
-                { key: "available", value: "true", color: "text-blue-300" },
-              ].map((item) => (
-                <div key={item.key} className="flex gap-2 text-sm font-mono" style={{ marginLeft: "1rem", marginBottom: "0.25rem", lineHeight: 1.6 }}>
-                  <span className="text-purple-300">{item.key}</span>
-                  <span className="text-zinc-500">:</span>
-                  <span className={item.color}>{item.value}</span>
-                  <span className="text-zinc-500">,</span>
-                </div>
-              ))}
-              <div className="text-yellow-400 font-mono text-sm">{"}"}</div>
-            </div>
+           
           </motion.div>
         </div>
 

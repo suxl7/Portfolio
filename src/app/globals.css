@@ -326,3 +326,10 @@ img {
     padding-bottom: 8rem;
   }
 }
+
+/* Proper text justification */
+.justify-text {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}

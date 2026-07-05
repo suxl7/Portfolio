@@ -10,7 +10,7 @@ const experiences = [
     title: "Cyber Security Virtual Internship",
     company: "Deloitte",
     type: "Internship",
-    period: "2023",
+    period: "2026",
     duration: "4 weeks",
     icon: Shield,
     color: "#ef4444",

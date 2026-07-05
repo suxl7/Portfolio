@@ -6,16 +6,16 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Download, Mail, ChevronDown } from "lucide-react";
 
 const roles = [
-  "Aspiring Software Developer",
-  "Full Stack Developer",
+  "Full Stack Web Developer",
+  "AI/ML Enthusiast",
   "Cloud Computing Learner",
 ];
 
 const stats = [
   { value: "4+",  label: "Years Learning" },
-  { value: "5", label: "Projects Built" },
+  { value: "3+", label: "Projects Built" },
   { value: "10+", label: "Technologies"   },
-  { value: "4+",  label: "Certifications" },
+  { value: "1",  label: "Certifications" },
 ];
 
 // memo so its setDisplayed never causes parent re-renders

@@ -1,5 +1,6 @@
 "use client";
 
+
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { GradientOrbs } from "@/components/GradientOrbs";
@@ -32,12 +33,11 @@ const Github = ({ className, style, ...props }: React.SVGProps<SVGSVGElement>) =
 
 
 
-
 const skillCards = [
   {
     title: "Frontend Development",
     description: "Building responsive, accessible UIs with modern React ecosystem and type-safe development",
-    skills: ["React 19", "Next.js 15", "TypeScript", "Tailwind CSS", "Framer Motion", "Three.js", "Zustand", "React Hook Form"],
+    skills: ["React 19", "Next.js 15", "TypeScript", "Tailwind CSS", "Framer Motion", "Three.js", "React Hook Form"],
     color: "#3b82f6",
     icon: <Code className="w-6 h-6" />,
     index: 0,
@@ -45,7 +45,7 @@ const skillCards = [
   {
     title: "Backend & APIs",
     description: "Designing scalable RESTful APIs, GraphQL servers, and real-time applications",
-    skills: ["Node.js", "Express", "Fastify", "tRPC", "PostgreSQL", "MongoDB", "Redis", "Prisma", "Drizzle"],
+    skills: ["Node.js", "Django", "PostgreSQL", "MongoDB" ],
     color: "#10b981",
     icon: <Server className="w-6 h-6" />,
     index: 1,
@@ -53,7 +53,7 @@ const skillCards = [
   {
     title: "DevOps & Cloud",
     description: "Deploying and scaling applications with modern cloud infrastructure and CI/CD",
-    skills: ["AWS", "Vercel", "Docker", "Kubernetes", "GitHub Actions", "Terraform", "Nginx", "Linux"],
+    skills: ["AWS", "Vercel", "Docker", "Google Cloud", "GitHub Actions", "Linux"],
     color: "#8b5cf6",
     icon: <Cloud className="w-6 h-6" />,
     index: 2,
@@ -61,7 +61,7 @@ const skillCards = [
   {
     title: "Tools & Workflow",
     description: "Modern development tooling for productive and maintainable codebases",
-    skills: ["Git", "VS Code", "Figma", "Postman", "Vitest", "Playwright", "ESLint", "Prettier", "Storybook"],
+    skills: ["GitHub", "VS Code", "Figma", "Postman", "Andoid Studio", "Antigravity" ],
     color: "#f59e0b",
     icon: <Globe className="w-6 h-6" />,
     index: 3,
@@ -69,7 +69,7 @@ const skillCards = [
   {
     title: "Creative & Design",
     description: "Crafting visual content and video productions with industry-standard creative tools",
-    skills: ["Adobe Illustrator", "DaVinci Resolve", "Graphic Design", "Video Editing", "Logo Design", "Motion Graphics"],
+    skills: ["Adobe Illustrator", "DaVinci Resolve", "Graphic Design", "Video Editing", "Logo Design",],
     color: "#ec4899",
     icon: <Palette className="w-6 h-6" />,
     index: 4,
@@ -84,7 +84,56 @@ const contactItems = [
 ];
 
 export default function Home() {
-  const [commandOpen, setCommandOpen] = useState(false);
+  //  Email Configuration  //
+
+const [commandOpen, setCommandOpen] = useState(false);
+const [formData, setFormData] = useState({
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
+});
+
+const [loading, setLoading] = useState(false);
+const handleSubmit = async (
+  e: React.FormEvent<HTMLFormElement>
+) => {
+  e.preventDefault();
+
+  setLoading(true);
+
+  try {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      alert("Message sent successfully!");
+
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } else {
+      alert("Failed to send message.");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong.");
+  }
+
+  setLoading(false);
+};
+
+ 
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -151,8 +200,8 @@ export default function Home() {
                   </div>
                   <div className="grid grid-cols-2 gap-6 pt-6 border-t border-zinc-200 dark:border-zinc-800">
                     {[
-                      { value: "3+", label: "Years Experience" },
-                      { value: "5", label: "Projects Completed" },
+                     
+                      { value: "3+", label: "Projects Completed" },
                       { value: "10+", label: "Technologies" },
               
                     ].map((stat, i) => (
@@ -176,7 +225,7 @@ export default function Home() {
                   <div className="space-y-4">
                     {[
                       { title: "Frontend Development", desc: "Building responsive, accessible UIs with React, Next.js, TypeScript, and Tailwind CSS", icon: <Code className="w-6 h-6" />, color: "#3b82f6" },
-                      { title: "Backend Development", desc: "Designing RESTful APIs and microservices with Node.js, Python, and databases", icon: <Server className="w-6 h-6" />, color: "#10b981" },
+                      { title: "Backend Development", desc: "Designing RESTful APIs and microservices with Node.js, Python, and PostgreSQL", icon: <Server className="w-6 h-6" />, color: "#10b981" },
                       { title: "Creative & Design", desc: "Graphic designing and video editing using Adobe Illustrator and DaVinci Resolve", icon: <Palette className="w-6 h-6" />, color: "#ec4899" },
                      
                       
@@ -278,7 +327,7 @@ export default function Home() {
                   transition={{ duration: 0.5 }}
                 >
                   Contact
-                </motion.span>z
+                </motion.span>
                 <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-zinc-900 dark:text-zinc-100">
                   Let&apos;s <span className="text-blue-600 dark:text-blue-400">Work Together</span>
                 </h2>
@@ -335,32 +384,168 @@ export default function Home() {
                   >
                     
                   </motion.div>
+
+
+              {/* Email Sending Form */}
                 </div>
-                <form className="relative bg-zinc-50 dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-6 sm:p-8 space-y-6" onSubmit={(e) => e.preventDefault()}>
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100" />
-                  <div className="relative z-10 grid sm:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Name</label>
-                      <input type="text" id="name" name="name" required className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="Your Name" />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Email</label>
-                      <input type="email" id="email" name="email" required className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="your@email.com" />
-                    </div>
-                  </div>
-                  <div className="relative z-10">
-                    <label htmlFor="subject" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Subject</label>
-                    <input type="text" id="subject" name="subject" required className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="Project Inquiry" />
-                  </div>
-                  <div className="relative z-10">
-                    <label htmlFor="message" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Message</label>
-                    <textarea id="message" name="message" rows={5} required className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none" placeholder="Tell me about your project..."></textarea>
-                  </div>
-                  <MagneticButton type="submit" variant="primary" className="relative z-10 w-full" glow>
-                    Send Message
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
-                  </MagneticButton>
-                </form>
+                <form
+  onSubmit={handleSubmit}
+  className="group relative bg-zinc-50 dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-6 sm:p-8 space-y-6 overflow-hidden"
+>
+  {/* Background Effect */}
+  <div className="absolute inset-0 pointer-events-none rounded-2xl bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5" />
+
+  {/* Name & Email */}
+  <div className="relative z-10 grid sm:grid-cols-2 gap-6">
+    <div>
+      <label
+        htmlFor="name"
+        className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2"
+      >
+        Name
+      </label>
+
+      <input
+        type="text"
+        id="name"
+        required
+        value={formData.name}
+        onChange={(e) =>
+          setFormData({ ...formData, name: e.target.value })
+        }
+        className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+        placeholder="Your Name"
+      />
+    </div>
+
+    <div>
+      <label
+        htmlFor="email"
+        className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2"
+      >
+        Email
+      </label>
+
+      <input
+        type="email"
+        id="email"
+        required
+        value={formData.email}
+        onChange={(e) =>
+          setFormData({ ...formData, email: e.target.value })
+        }
+        className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+        placeholder="your@email.com"
+      />
+    </div>
+  </div>
+
+  {/* Subject */}
+  <div className="relative z-10">
+    <label
+      htmlFor="subject"
+      className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2"
+    >
+      Subject
+    </label>
+
+    <input
+      type="text"
+      id="subject"
+      required
+      value={formData.subject}
+      onChange={(e) =>
+        setFormData({ ...formData, subject: e.target.value })
+      }
+      className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+      placeholder="Project Inquiry"
+    />
+  </div>
+
+  {/* Message */}
+  <div className="relative z-10">
+    <label
+      htmlFor="message"
+      className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2"
+    >
+      Message (Optional)
+    </label>
+
+    <textarea
+      id="message"
+      rows={6}
+      value={formData.message}
+      onChange={(e) =>
+        setFormData({ ...formData, message: e.target.value })
+      }
+      className="w-full min-h-[160px] px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+      placeholder="Tell me about your project..."
+    />
+  </div>
+
+  {/* Submit Button */}
+  <div className="relative z-20">
+    <button
+      type="submit"
+      disabled={loading}
+      className="group w-full flex items-center justify-center gap-3 py-4 px-6 rounded-xl
+                 bg-gradient-to-r from-blue-600 to-purple-600
+                 hover:from-blue-500 hover:to-purple-500
+                 text-white font-semibold text-lg
+                 transition-all duration-300
+                 hover:scale-[1.02]
+                 hover:shadow-xl hover:shadow-blue-500/30
+                 active:scale-[0.98]
+                 disabled:opacity-60 disabled:cursor-not-allowed"
+    >
+      {loading ? (
+        <>
+          <svg
+            className="w-5 h-5 animate-spin"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+              opacity="0.25"
+            />
+
+            <path
+              d="M22 12a10 10 0 0 0-10-10"
+              stroke="currentColor"
+              strokeWidth="4"
+              strokeLinecap="round"
+            />
+          </svg>
+
+          Sending...
+        </>
+      ) : (
+        <>
+          <span>Send Message</span>
+
+          <svg
+            className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M13 5l7 7-7 7M5 12h15"
+            />
+          </svg>
+        </>
+      )}
+    </button>
+  </div>
+</form>
               </div>
             </div>
           </AnimatedSection>
