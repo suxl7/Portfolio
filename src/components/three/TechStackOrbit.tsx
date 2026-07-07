@@ -27,11 +27,13 @@ const technologies = [
 
 function TechNode({ name, icon, color, orbit, speed, index }: { name: string; icon: string; color: string; orbit: number; speed: number; index: number }) {
   const ref = useRef<THREE.Group>(null);
+  const elapsedRef = useRef(0);
   const angle = (index / technologies.length) * Math.PI * 2;
 
-  useFrame(({ clock }) => {
+  useFrame((_, delta) => {
     if (!ref.current) return;
-    const t = clock.getElapsedTime() * speed;
+    elapsedRef.current += delta;
+    const t = elapsedRef.current * speed;
     ref.current.position.x = Math.cos(angle + t) * orbit;
     ref.current.position.z = Math.sin(angle + t) * orbit;
     ref.current.position.y = Math.sin(t * 0.5 + index) * 0.3;
@@ -80,11 +82,14 @@ function TechNode({ name, icon, color, orbit, speed, index }: { name: string; ic
 
 function CenterCore() {
   const ref = useRef<THREE.Mesh>(null);
+  const elapsedRef = useRef(0);
 
-  useFrame(({ clock }) => {
+  useFrame((_, delta) => {
     if (!ref.current) return;
-    ref.current.rotation.y = clock.getElapsedTime() * 0.4;
-    ref.current.rotation.x = Math.sin(clock.getElapsedTime() * 0.3) * 0.15;
+    elapsedRef.current += delta;
+    const elapsed = elapsedRef.current;
+    ref.current.rotation.y = elapsed * 0.4;
+    ref.current.rotation.x = Math.sin(elapsed * 0.3) * 0.15;
   });
 
   return (

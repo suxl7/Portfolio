@@ -7,12 +7,15 @@ import * as THREE from "three";
 
 function AnimatedSphere() {
   const ref = useRef<THREE.Mesh>(null);
+  const elapsedRef = useRef(0);
   const [hovered, setHovered] = useState(false);
 
-  useFrame(({ clock }) => {
+  useFrame((_, delta) => {
     if (!ref.current) return;
-    ref.current.rotation.x = clock.getElapsedTime() * 0.2;
-    ref.current.rotation.y = clock.getElapsedTime() * 0.3;
+    elapsedRef.current += delta;
+    const elapsed = elapsedRef.current;
+    ref.current.rotation.x = elapsed * 0.2;
+    ref.current.rotation.y = elapsed * 0.3;
   });
 
   return (
@@ -38,6 +41,7 @@ function AnimatedSphere() {
 
 function ParticleRing({ radius, count, speed }: { radius: number; count: number; speed: number }) {
   const ref = useRef<THREE.Points>(null);
+  const elapsedRef = useRef(0);
 
   useEffect(() => {
     if (!ref.current) return;
@@ -51,10 +55,12 @@ function ParticleRing({ radius, count, speed }: { radius: number; count: number;
     ref.current.geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
   }, [count, radius]);
 
-  useFrame(({ clock }) => {
+  useFrame((_, delta) => {
     if (!ref.current) return;
-    ref.current.rotation.y = clock.getElapsedTime() * speed;
-    ref.current.rotation.x = Math.sin(clock.getElapsedTime() * 0.3) * 0.2;
+    elapsedRef.current += delta;
+    const elapsed = elapsedRef.current;
+    ref.current.rotation.y = elapsed * speed;
+    ref.current.rotation.x = Math.sin(elapsed * 0.3) * 0.2;
   });
 
   return (
