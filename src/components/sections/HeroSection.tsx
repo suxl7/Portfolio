@@ -15,7 +15,7 @@ const stats = [
   { value: "4+",  label: "Years Learning" },
   { value: "3+", label: "Projects Built" },
   { value: "10+", label: "Technologies"   },
-  { value: "1",  label: "Certifications" },
+  { value: "2",  label: "Certifications" },
 ];
 
 // memo so its setDisplayed never causes parent re-renders
