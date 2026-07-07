@@ -1,6 +1,5 @@
 "use client";
 
-import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useRef, useEffect } from "react";
 import { ArrowRight, Mail } from "lucide-react";
 
@@ -30,8 +29,9 @@ export function MagneticButton({
   ...props
 }: MagneticButtonProps) {
   const ref = useRef<HTMLButtonElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+  const frameRef = useRef<number | null>(null);
+  const targetRef = useRef({ x: 0, y: 0 });
+  const currentRef = useRef({ x: 0, y: 0 });
 
   const variants = {
     primary: "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-700 dark:hover:bg-zinc-200",
@@ -51,74 +51,62 @@ export function MagneticButton({
     if (!magnetic || !ref.current) return;
 
     const element = ref.current;
+    const render = () => {
+      currentRef.current.x += (targetRef.current.x - currentRef.current.x) * 0.22;
+      currentRef.current.y += (targetRef.current.y - currentRef.current.y) * 0.22;
+      element.style.transform = `translate3d(${currentRef.current.x}px, ${currentRef.current.y}px, 0)`;
+      frameRef.current = requestAnimationFrame(render);
+    };
+
     const handleMouseMove = (e: MouseEvent) => {
       const rect = element.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-      x.set((e.clientX - centerX) * 0.3);
-      y.set((e.clientY - centerY) * 0.3);
+      targetRef.current.x = (e.clientX - centerX) * 0.14;
+      targetRef.current.y = (e.clientY - centerY) * 0.14;
     };
 
     const handleMouseLeave = () => {
-      x.set(0);
-      y.set(0);
+      targetRef.current.x = 0;
+      targetRef.current.y = 0;
     };
 
     element.addEventListener("mousemove", handleMouseMove);
     element.addEventListener("mouseleave", handleMouseLeave);
+    frameRef.current = requestAnimationFrame(render);
 
     return () => {
       element.removeEventListener("mousemove", handleMouseMove);
       element.removeEventListener("mouseleave", handleMouseLeave);
+      if (frameRef.current) cancelAnimationFrame(frameRef.current);
     };
-  }, [x, y, magnetic]);
-
-  const rotateX = useTransform(y, [-50, 50], ["5deg", "-5deg"]);
-  const rotateY = useTransform(x, [-50, 50], ["-5deg", "5deg"]);
+  }, [magnetic]);
 
   return (
-    <motion.button
+    <button
       ref={ref}
-      className={`relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-semibold text-base transition-all ${variants[variant]} ${className} magnetic-btn`}
+      className={`group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.98] ${variants[variant]} ${className} magnetic-btn`}
       style={{
         ...style,
-        x,
-        y,
-        rotateX,
-        rotateY,
-        transformPerspective: 500,
-        transformStyle: "preserve-3d",
         boxShadow: glow
           ? `0 10px 30px -10px ${glowColors[variant]}, 0 0 0 1px rgba(255,255,255,0.1) inset`
           : "none",
       }}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
       data-cursor-hover
       {...props}
     >
-      <span style={{ transform: "translateZ(10px)" }}>
-        {iconPosition === "left" && icon && <motion.span style={{ transform: "translateZ(10px)" }}>{icon}</motion.span>}
-        <span style={{ transform: "translateZ(10px)" }}>{children}</span>
+      <span className="relative z-10 inline-flex items-center gap-3">
+        {iconPosition === "left" && icon && <span>{icon}</span>}
+        <span>{children}</span>
         {iconPosition === "right" && icon && (
-          <motion.span
-            style={{ transform: "translateZ(10px)" }}
-            animate={{ x: [0, 4, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          >
+          <span className="transition-transform duration-200 group-hover:translate-x-1">
             {icon}
-          </motion.span>
+          </span>
         )}
       </span>
 
-      <motion.div
-        className="absolute inset-0 rounded-xl bg-white/10 dark:bg-white/5 opacity-0"
-        style={{ transform: "translateZ(-10px)" }}
-        whileHover={{ opacity: 1 }}
-        transition={{ duration: 0.2 }}
-      />
-    </motion.button>
+      <span className="absolute inset-0 rounded-xl bg-white/10 opacity-0 transition-opacity duration-200 hover:opacity-100 dark:bg-white/5" />
+    </button>
   );
 }
 
@@ -133,25 +121,16 @@ export function SocialButton({ href, icon: Icon, label, color }: { href: string;
       aria-label={label}
       data-cursor-hover
     >
-      <motion.span
-        className="relative z-10"
-        whileHover={{ scale: 1.2, rotateZ: 10 }}
-        transition={{ type: "spring", stiffness: 300, damping: 15 }}
-      >
+      <span className="relative z-10 transition-transform duration-200 group-hover:scale-110">
         <Icon className="w-6 h-6" style={{ color }} />
-      </motion.span>
-      <motion.div
-        className="absolute inset-0 rounded-xl opacity-0"
+      </span>
+      <span
+        className="absolute inset-0 rounded-xl opacity-0 transition-opacity duration-200 group-hover:opacity-100"
         style={{ background: `linear-gradient(135deg, ${color}40, ${color}60)` }}
-        whileHover={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
       />
-      <motion.div
-        className="absolute bottom-0 left-0 right-0 h-0.5"
+      <span
+        className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 transition-transform duration-200 group-hover:scale-x-100"
         style={{ background: color }}
-        initial={{ scaleX: 0 }}
-        whileHover={{ scaleX: 1 }}
-        transition={{ type: "spring", stiffness: 500, damping: 30 }}
       />
     </a>
   );

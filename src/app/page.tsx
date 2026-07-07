@@ -3,11 +3,9 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { GradientOrbs } from "@/components/GradientOrbs";
 import { AnimatedSection, AnimatedDiv } from "@/components/AnimatedSection";
 import { SkillCard3D } from "@/components/SkillCard3D";
-import { Starfield } from "@/components/Starfield";
-import { MagneticButton, SocialButton } from "@/components/MagneticButton";
+import { PremiumBackground } from "@/components/PremiumBackground";
 import { Mail, MapPin, Code, Server, Cloud, Globe, Palette } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -159,17 +157,16 @@ const handleSubmit = async (
         <CustomCursor />
         <CommandPalette isOpen={commandOpen} onClose={() => setCommandOpen(false)} />
 
-        <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 font-sans relative overflow-x-hidden">
+        <div className="min-h-screen bg-zinc-50 dark:bg-[#09090b] font-sans relative overflow-x-hidden">
+        <PremiumBackground />
         <div className="relative z-10 min-h-screen">
-          <Starfield />
-          <GradientOrbs />
           <Navbar />
           <main className="pt-20">
           {/* Hero Section */}
           <HeroSection />
 
           {/* About Section */}
-          <AnimatedSection id="about" variant="slide-up" className="section-py bg-white dark:bg-zinc-950 relative">
+          <AnimatedSection id="about" variant="slide-up" className="section-py bg-white/80 dark:bg-zinc-950/35 relative">
             <div className="section-container">
               <div className="text-center mb-16">
                 <motion.span
@@ -207,12 +204,12 @@ const handleSubmit = async (
                     ].map((stat, i) => (
                       <motion.div
                         key={i}
-                        className="text-center p-4 bg-zinc-50 dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800"
+                        className="text-center p-4 bg-white/80 dark:bg-white/[0.03] rounded-xl border border-zinc-200 dark:border-white/[0.08]"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: i * 0.1 }}
-                        whileHover={{ y: -5, scale: 1.02 }}
+                        whileHover={{ y: -3 }}
                       >
                         <p className="text-3xl sm:text-4xl font-bold text-zinc-900 dark:text-zinc-100">{stat.value}</p>
                         <p className="text-zinc-600 dark:text-zinc-400 text-sm mt-1">{stat.label}</p>
@@ -232,7 +229,7 @@ const handleSubmit = async (
                     ].map((item, i) => (
                       <motion.div
                         key={i}
-                        className="group relative flex gap-4 p-6 bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden"
+                        className="group relative flex gap-4 p-6 bg-white/80 dark:bg-white/[0.03] rounded-xl border border-zinc-200 dark:border-white/[0.08] overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:border-blue-500/30"
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -242,8 +239,6 @@ const handleSubmit = async (
                         <motion.div
                           className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
                           style={{ background: `linear-gradient(135deg, ${item.color}20, ${item.color}40)`, border: `1px solid ${item.color}30` }}
-                          whileHover={{ scale: 1.1, rotateZ: [0, -3, 3, 0] }}
-                          transition={{ duration: 0.4 }}
                         >
                           <span style={{ color: item.color }}>{item.icon}</span>
                         </motion.div>
@@ -265,8 +260,7 @@ const handleSubmit = async (
           </AnimatedSection>
 
           {/* Skills Section */}
-          <AnimatedSection id="skills" variant="slide-up" className="section-py bg-zinc-50 dark:bg-zinc-900 relative">
-            <GradientOrbs />
+          <AnimatedSection id="skills" variant="slide-up" className="section-py bg-zinc-50/80 dark:bg-zinc-900/30 relative">
             <div className="section-container relative z-10">
               <div className="text-center mb-16">
                 <motion.span
@@ -296,7 +290,7 @@ const handleSubmit = async (
                 viewport={{ once: true }}
               >
                 <h3 className="text-center text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-8">
-                  My Tech Universe
+                  Core Tooling
                 </h3>
                 <TechStackOrbit />
               </motion.div>
@@ -316,7 +310,7 @@ const handleSubmit = async (
           <EducationSection />
 
           {/* Contact Section */}
-          <AnimatedSection id="contact" variant="slide-up" className="section-py bg-white dark:bg-zinc-950 relative">
+          <AnimatedSection id="contact" variant="slide-up" className="section-py bg-white/80 dark:bg-zinc-950/35 relative">
             <div className="section-container">
               <div className="text-center mb-16">
                 <motion.span
@@ -347,7 +341,7 @@ const handleSubmit = async (
                         transition={{ delay: 0.1 + i * 0.1 }}
                       >
                         {item.href ? (
-                          <a href={item.href} target="_blank" rel="noopener noreferrer" className="group relative flex items-start gap-4 p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-blue-500/50 dark:hover:border-blue-500/50 transition-all">
+                          <a href={item.href} target="_blank" rel="noopener noreferrer" className="group relative flex items-start gap-4 p-4 rounded-xl bg-zinc-50 dark:bg-white/[0.03] border border-zinc-200 dark:border-white/[0.08] hover:border-blue-500/40 dark:hover:border-blue-500/40 transition-all">
                             <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: `linear-gradient(135deg, ${item.color}20, ${item.color}40)`, border: `1px solid ${item.color}30` }}>
                               <item.icon className="w-6 h-6" style={{ color: item.color }} />
                             </div>
@@ -362,7 +356,7 @@ const handleSubmit = async (
                             />
                           </a>
                         ) : (
-                          <div className="flex items-start gap-4 p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
+                          <div className="flex items-start gap-4 p-4 rounded-xl bg-zinc-50 dark:bg-white/[0.03] border border-zinc-200 dark:border-white/[0.08]">
                             <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: `linear-gradient(135deg, ${item.color}20, ${item.color}40)`, border: `1px solid ${item.color}30` }}>
                               <item.icon className="w-6 h-6" style={{ color: item.color }} />
                             </div>
@@ -390,10 +384,10 @@ const handleSubmit = async (
                 </div>
                 <form
   onSubmit={handleSubmit}
-  className="group relative bg-zinc-50 dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-6 sm:p-8 space-y-6 overflow-hidden"
+  className="group relative bg-zinc-50 dark:bg-white/[0.03] rounded-xl border border-zinc-200 dark:border-white/[0.08] p-6 sm:p-8 space-y-6 overflow-hidden"
 >
   {/* Background Effect */}
-  <div className="absolute inset-0 pointer-events-none rounded-2xl bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5" />
+  <div className="absolute inset-0 pointer-events-none rounded-xl bg-gradient-to-br from-blue-500/5 via-transparent to-indigo-500/5" />
 
   {/* Name & Email */}
   <div className="relative z-10 grid sm:grid-cols-2 gap-6">
@@ -489,12 +483,12 @@ const handleSubmit = async (
       type="submit"
       disabled={loading}
       className="group w-full flex items-center justify-center gap-3 py-4 px-6 rounded-xl
-                 bg-gradient-to-r from-blue-600 to-purple-600
-                 hover:from-blue-500 hover:to-purple-500
+                 bg-gradient-to-r from-blue-600 to-indigo-600
+                 hover:from-blue-500 hover:to-indigo-500
                  text-white font-semibold text-lg
                  transition-all duration-300
-                 hover:scale-[1.02]
-                 hover:shadow-xl hover:shadow-blue-500/30
+                 hover:-translate-y-0.5 hover:scale-[1.01]
+                 hover:shadow-lg hover:shadow-blue-500/20
                  active:scale-[0.98]
                  disabled:opacity-60 disabled:cursor-not-allowed"
     >

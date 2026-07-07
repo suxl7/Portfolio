@@ -107,7 +107,7 @@ export function Footer() {
         <div className="border-t border-zinc-200 dark:border-zinc-800 pt-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-sm text-zinc-500 flex items-center gap-1">
-              © {new Date().getFullYear()} Sushil. Built with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> using Next.js, Three.js & Framer Motion
+              © {new Date().getFullYear()} Sushil. Built with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> using Next.js, Tailwind CSS & Framer Motion
             </p>
             
             {/* Back to top button */}

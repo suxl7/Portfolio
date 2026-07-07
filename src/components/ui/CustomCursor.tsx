@@ -1,97 +1,75 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 export function CustomCursor() {
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
-  const ringX = useSpring(cursorX, { stiffness: 150, damping: 20 });
-  const ringY = useSpring(cursorY, { stiffness: 150, damping: 20 });
-  const [isHovering, setIsHovering] = useState(false);
-  const observerRef = useRef<MutationObserver | null>(null);
-  const elementsRef = useRef<Set<Element>>(new Set());
-
-  const handlersRef = useRef<Map<Element, { enter: () => void; leave: () => void }>>(new Map());
-
-  const attachListeners = (el: Element) => {
-    if (elementsRef.current.has(el)) return;
-    elementsRef.current.add(el);
-    const enter = () => setIsHovering(true);
-    const leave = () => setIsHovering(false);
-    handlersRef.current.set(el, { enter, leave });
-    el.addEventListener("mouseenter", enter);
-    el.addEventListener("mouseleave", leave);
-  };
-
-  const detachListeners = (el: Element) => {
-    if (!elementsRef.current.has(el)) return;
-    elementsRef.current.delete(el);
-    const handlers = handlersRef.current.get(el);
-    if (handlers) {
-      el.removeEventListener("mouseenter", handlers.enter);
-      el.removeEventListener("mouseleave", handlers.leave);
-      handlersRef.current.delete(el);
-    }
-  };
+  const dotRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<HTMLDivElement>(null);
+  const targetRef = useRef({ x: -100, y: -100 });
+  const ringRefPosition = useRef({ x: -100, y: -100 });
+  const frameRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const move = (e: MouseEvent) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+
+    const dot = dotRef.current;
+    const ring = ringRef.current;
+    if (!dot || !ring) return;
+
+    const render = () => {
+      const target = targetRef.current;
+      const ringPosition = ringRefPosition.current;
+
+      ringPosition.x += (target.x - ringPosition.x) * 0.18;
+      ringPosition.y += (target.y - ringPosition.y) * 0.18;
+
+      dot.style.transform = `translate3d(${target.x}px, ${target.y}px, 0) translate(-50%, -50%)`;
+      ring.style.transform = `translate3d(${ringPosition.x}px, ${ringPosition.y}px, 0) translate(-50%, -50%)`;
+      frameRef.current = requestAnimationFrame(render);
     };
 
-    const selector = "a, button, [role='button'], input, textarea, select, [href], .group, nav button, [data-cursor-hover], .social-link, .nav-link, .magnetic-btn";
-    
-    const attachToAll = () => {
-      document.querySelectorAll(selector).forEach(attachListeners);
+    const move = (event: MouseEvent) => {
+      targetRef.current.x = event.clientX;
+      targetRef.current.y = event.clientY;
     };
 
-    window.addEventListener("mousemove", move);
-    attachToAll();
+    const hoverIn = () => {
+      dot.classList.add("cursor-dot--hover");
+      ring.classList.add("cursor-ring--hover");
+    };
 
-    observerRef.current = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
-          if (node.nodeType === Node.ELEMENT_NODE) {
-            const el = node as Element;
-            if (el.matches(selector)) attachListeners(el);
-            el.querySelectorAll(selector).forEach(attachListeners);
-          }
-        });
-        mutation.removedNodes.forEach((node) => {
-          if (node.nodeType === Node.ELEMENT_NODE) {
-            detachListeners(node as Element);
-            (node as Element).querySelectorAll(selector).forEach(detachListeners);
-          }
-        });
-      });
-    });
+    const hoverOut = () => {
+      dot.classList.remove("cursor-dot--hover");
+      ring.classList.remove("cursor-ring--hover");
+    };
 
-    observerRef.current.observe(document.body, { childList: true, subtree: true });
+    const selector = "a, button, [role='button'], input, textarea, select, [href], [data-cursor-hover], .social-link, .nav-link, .magnetic-btn";
+
+    const handleMouseOver = (event: MouseEvent) => {
+      if ((event.target as Element | null)?.closest(selector)) hoverIn();
+    };
+
+    const handleMouseOut = (event: MouseEvent) => {
+      if ((event.target as Element | null)?.closest(selector)) hoverOut();
+    };
+
+    document.addEventListener("mousemove", move, { passive: true });
+    document.addEventListener("mouseover", handleMouseOver);
+    document.addEventListener("mouseout", handleMouseOut);
+    frameRef.current = requestAnimationFrame(render);
 
     return () => {
-      window.removeEventListener("mousemove", move);
-      observerRef.current?.disconnect();
-      elementsRef.current.forEach(detachListeners);
-      elementsRef.current.clear();
+      document.removeEventListener("mousemove", move);
+      document.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mouseout", handleMouseOut);
+      if (frameRef.current) cancelAnimationFrame(frameRef.current);
     };
-  }, [cursorX, cursorY]);
+  }, []);
 
   return (
     <>
-      <motion.div
-        className="cursor-dot hidden lg:block"
-        style={{ left: cursorX, top: cursorY }}
-        animate={{ scale: isHovering ? 1.5 : 1 }}
-        transition={{ duration: 0.2 }}
-      />
-      <motion.div
-        className="cursor-ring hidden lg:block"
-        style={{ left: ringX, top: ringY }}
-        animate={{ scale: isHovering ? 1.5 : 1, borderColor: isHovering ? "#3b82f6" : "rgba(59, 130, 246, 0.6)" }}
-        transition={{ duration: 0.3 }}
-      />
+      <div ref={dotRef} className="cursor-dot hidden lg:block" />
+      <div ref={ringRef} className="cursor-ring hidden lg:block" />
     </>
   );
 }
