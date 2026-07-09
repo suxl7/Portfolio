@@ -101,7 +101,7 @@ const handleSubmit = async (
   setLoading(true);
 
   try {
-    const res = await fetch("/api/contact", {
+    const res = await fetch("/api/contact", {     //Resend API CAll
       method: "POST",
       headers: {
         "Content-Type": "application/json",

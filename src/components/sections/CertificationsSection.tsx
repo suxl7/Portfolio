@@ -78,10 +78,10 @@ export function CertificationsSection() {
             05. Certifications
           </span>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-zinc-900 dark:text-white">
-            Professional <span className="text-gradient">Credentials</span>
+            Foundational <span className="text-gradient">Credentials</span>
           </h2>
           <p className="mt-4 text-zinc-500 max-w-xl mx-auto">
-            Verified certification demonstrating expertise in cybersecurity.
+            
           </p>
         </motion.div>
 
@@ -230,7 +230,7 @@ export function CertificationsSection() {
           <div className="inline-flex items-center gap-3 glass border border-zinc-200/50 dark:border-zinc-700/50 rounded-full px-6 py-3">
             <Award className="w-5 h-5 text-yellow-500" />
             <span className="text-sm text-zinc-600 dark:text-zinc-400">
-              <span className="font-bold text-zinc-900 dark:text-white">{certifications.length}</span> professional certifications
+              <span className="font-bold text-zinc-900 dark:text-white">{certifications.length}</span> foundational certifications
             </span>
           </div>
         </motion.div>

@@ -9,46 +9,45 @@ export function LoadingScreen() {
 
   useEffect(() => {
     let cancelled = false;
+    let finishTimeout: ReturnType<typeof setTimeout> | undefined;
     let progressValue = 0;
-    
+
+    const finish = () => {
+      if (!cancelled) setLoading(false);
+    };
+
     const interval = setInterval(() => {
       if (cancelled) return;
-      
-      progressValue += Math.random() * 15 + 10;
-      if (progressValue >= 100) {
-        progressValue = 100;
-        clearInterval(interval);
-        if (!cancelled) {
-          setTimeout(() => setLoading(false), 200);
-        }
-      }
+
+      progressValue = Math.min(progressValue + Math.random() * 15 + 10, 100);
       setProgress(progressValue);
+
+      if (progressValue >= 100) {
+        clearInterval(interval);
+        finishTimeout = setTimeout(finish, 150);
+      }
     }, 60);
 
-    // Safety timeout - force hide after 3 seconds max
-    const safetyTimeout = setTimeout(() => {
-      if (!cancelled) {
-        clearInterval(interval);
-        setLoading(false);
-      }
-    }, 3000);
+    const safetyTimeout = setTimeout(finish, 2500);
 
     return () => {
       cancelled = true;
       clearInterval(interval);
       clearTimeout(safetyTimeout);
+      if (finishTimeout) clearTimeout(finishTimeout);
     };
   }, []);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {loading && (
         <motion.div
+          key="loading-screen"
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#03030a]"
-          exit={{ opacity: 0, scale: 1.05 }}
-          transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.35, ease: "easeOut" }}
         >
-          {/* Animated rings */}
           <div className="relative w-32 h-32 mb-8">
             {[0, 1, 2].map((i) => (
               <motion.div
@@ -78,13 +77,10 @@ export function LoadingScreen() {
             Loading Portfolio
           </motion.p>
 
-          {/* Progress bar */}
           <div className="w-48 h-0.5 bg-zinc-800 rounded-full overflow-hidden">
-            <motion.div
-              className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 rounded-full"
+            <div
+              className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 rounded-full transition-[width] duration-100 ease-out"
               style={{ width: `${Math.min(progress, 100)}%` }}
-              animate={{ width: `${Math.min(progress, 100)}%` }}
-              transition={{ duration: 0.1 }}
             />
           </div>
           <p className="text-zinc-600 text-xs mt-2">{Math.min(Math.round(progress), 100)}%</p>
