@@ -9,7 +9,7 @@ function TechCard({ tech }: { tech: Tech }) {
   return (
     <div
       className="
-        group relative flex items-center gap-3
+        group relative flex shrink-0 items-center gap-3
         rounded-2xl border border-white/[0.08]
         bg-white/[0.04] px-4 py-3
         backdrop-blur-md
@@ -21,6 +21,7 @@ function TechCard({ tech }: { tech: Tech }) {
         cursor-default select-none
         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30
       "
+      style={{ marginRight: 16 }}
       tabIndex={0}
       role="listitem"
     >
@@ -73,7 +74,7 @@ function MarqueeRow({
       aria-label={`Technology marquee moving ${direction}`}
     >
       <div
-        className="marquee-track flex w-max gap-4"
+        className="marquee-track flex w-max"
         style={{
           animationName: reduceMotion ? "none" : "marquee-scroll",
           animationDuration: `${speed}s`,
