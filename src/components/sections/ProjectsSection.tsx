@@ -38,7 +38,7 @@ const projects = [
     description: "Full-stack admin dashboard for farm management with real-time analytics, inventory tracking, and reporting.",
     longDescription: "A comprehensive farm management system built with React, Node.js, and MongoDB. Features real-time crop tracking, inventory management, financial reporting, and a responsive dashboard with interactive charts.",
     category: "Web Dev",
-    tags: ["React", "Tailwind CSS", "Python Django", "PostgreSQL", "Postman", "Javascript"],
+    tags: ["React", "Tailwind CSS", "Python Django", "PostgreSQL", "Postman"],
     color: "#10b981",
     featured: true,
     github: "https://github.com/suxl7",
@@ -188,7 +188,7 @@ export function ProjectsSection() {
           viewport={{ once: true }}
         >
           <span className="inline-block text-sm font-mono text-blue-400 mb-4 tracking-widest uppercase">
-            03. Projects
+            Projects
           </span>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-zinc-900 dark:text-white">
             Featured <span className="text-gradient">Work</span>

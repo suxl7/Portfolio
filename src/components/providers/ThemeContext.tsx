@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, ReactNode } from "react";
+import { ReactNode } from "react";
 import { ThemeProvider as NextThemesProvider, useTheme as useNextTheme } from "next-themes";
 
 export function ThemeProvider({
@@ -13,22 +13,14 @@ export function ThemeProvider({
   enableSystem?: boolean;
   disableTransitionOnChange?: boolean;
 }) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return (
-      <NextThemesProvider {...props} attribute="class" defaultTheme="dark" enableSystem>
-        {children}
-      </NextThemesProvider>
-    );
-  }
-
   return (
-    <NextThemesProvider {...props} attribute="class" defaultTheme="dark" enableSystem>
+    <NextThemesProvider
+      {...props}
+      attribute="class"
+      defaultTheme="dark"
+      enableSystem
+      
+    >
       {children}
     </NextThemesProvider>
   );

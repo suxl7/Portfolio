@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon, Menu, X, Terminal, Home, User, Zap, FolderGit2, Briefcase, Award, Mail } from "lucide-react";
 import { useThemeContext } from "@/components/providers/ThemeContext";
@@ -65,24 +64,10 @@ export function Navbar() {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
-        <nav className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-          {/* Logo */}
-          <motion.button
-            onClick={() => scrollTo("#hero")}
-            className="flex items-center gap-2 group"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
-              <Terminal className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
-              Sushil<span className="text-blue-500">.</span>
-            </span>
-          </motion.button>
-
+        <nav className="relative max-w-7xl mx-auto px-6 py-5 flex items-center">
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-2">
+
+         <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-2">
             {navLinks.map((link) => {
               const Icon = link.icon;
               const isActive = activeSection === link.href.slice(1);
@@ -121,18 +106,7 @@ export function Navbar() {
           </div>
 
           {/* Right controls */}
-          <div className="flex items-center gap-3">
-            {/* Profile Avatar */}
-            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-blue-500/40 shadow-lg shadow-blue-500/20 flex-shrink-0 bg-gradient-to-br from-blue-500 to-purple-600">
-              <Image
-                src="/images/profile.jpg"
-                alt="Sushil"
-                width={40}
-                height={40}
-                className="w-full h-full object-cover"
-                onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-              />
-            </div>
+          <div className="ml-auto flex items-center gap-3">
             {mounted && (
               <motion.button
                 onClick={() => setTheme(currentTheme === "dark" ? "light" : "dark")}
@@ -154,6 +128,7 @@ export function Navbar() {
                   </motion.div>
                 </AnimatePresence>
               </motion.button>
+
             )}
 
             <button

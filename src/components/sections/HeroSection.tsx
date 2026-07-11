@@ -4,20 +4,21 @@ import { useEffect, useState, memo } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { Download, Mail, ChevronDown } from "lucide-react";
+import AnimatedStat from "@/components/AnimatedStat";
 
 const roles = [
   "Full Stack Developer",
-  "Cloud Enthusiast",
-  "Cybersecurity Learner",
-  "Backend Engineer",
+  "Cloud Learner",
+  "AI ML Enthusiast",
 ];
 
 const stats = [
-  { value: "4+", label: "Years Learning" },
-  { value: "3+", label: "Projects Built" },
-  { value: "10+", label: "Technologies" },
-  { value: "2", label: "Certifications" },
+  { value: 4, suffix: "+", label: "Years Learning" },
+  { value: 3, suffix: "+", label: "Projects Built" },
+  { value: 10, suffix: "+", label: "Technologies" },
+  { value: 2, suffix: "", label: "Certifications" },
 ];
+
 
 const techBadges = [
   { icon: "/icons/icons8-react-native-512.png", label: "React", className: "left-2 top-8" },
@@ -90,12 +91,12 @@ function PremiumHeroVisual() {
               <span className="h-2 w-2 rounded-full bg-emerald-400/80" />
             </div>
             <div className="space-y-2 text-left font-mono text-[11px] text-slate-400">
-              <p>
-                <span className="text-blue-300">const</span> focus = "secure systems";
-              </p>
-              <p>
-                <span className="text-cyan-300">ship</span>("clean web apps");
-              </p>
+              <div>
+                <span className="text-blue-300">const</span>{" focus = "}<span className="text-emerald-300">&quot;secure systems&quot;</span>;
+              </div>
+              <div>
+                <span className="text-cyan-300">ship</span>(<span className="text-emerald-300">&quot;clean web apps&quot;</span>);
+              </div>
             </div>
           </div>
         </div>
@@ -107,7 +108,7 @@ function PremiumHeroVisual() {
           className={`hero-tech-badge absolute rounded-xl border border-white/10 bg-white/[0.06] p-2 shadow-lg shadow-black/20 backdrop-blur ${badge.className}`}
           style={{ animationDelay: `${i * 0.8}s` }}
         >
-          <Image src={badge.icon} alt={badge.label} width={28} height={28} />
+          <Image src={badge.icon} alt={badge.label} width={28} height={28} style={{ height: "auto" }} />
         </div>
       ))}
     </div>
@@ -115,6 +116,8 @@ function PremiumHeroVisual() {
 }
 
 export function HeroSection() {
+
+
   return (
     <section
       id="hero"
@@ -143,10 +146,12 @@ export function HeroSection() {
               <TypingText />
             </div>
 
-            <p className="hero-item text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-lg">
-              Passionate about building secure, scalable, and beautiful digital experiences.
-              Exploring the intersection of software development, cybersecurity, and cloud computing.
-            </p>
+            <p
+           className="hero-item text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-3xl text-justify"
+            >
+             Passionate about building secure, scalable, and interactive digital experiences.
+            Exploring the intersection of Software Development, and Cloud Computing.
+              </p>
 
             <div className="hero-item flex flex-col sm:flex-row gap-4">
               <motion.a
@@ -174,40 +179,53 @@ export function HeroSection() {
               </motion.button>
             </div>
 
-            <div className="hero-item grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-zinc-200 dark:border-white/[0.08]">
-              {stats.map((stat) => (
-                <motion.div key={stat.label} className="text-center" whileHover={{ y: -3 }}>
-                  <div className="text-2xl font-black text-gradient">{stat.value}</div>
-                  <div className="text-xs text-zinc-500 mt-1">{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
 
-          <motion.div
-            className="hidden lg:flex justify-center"
-            initial={{ opacity: 0, scale: 0.94, x: 32 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.35 }}
-          >
-            <PremiumHeroVisual />
-          </motion.div>
-        </div>
-      </div>
+  {/* Stats Viewer */}
 
-      <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 hero-item"
-        style={{ animationDelay: "1.55s" }}
-      >
-        <button
-          onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
-          className="flex flex-col items-center gap-2 text-zinc-500 hover:text-blue-400 transition-colors nav-link"
-          data-cursor-hover
-        >
-          <span className="text-xs tracking-widest uppercase font-mono">Scroll</span>
-          <ChevronDown className="w-5 h-5" />
-        </button>
-      </div>
-    </section>
+<div className="hero-item mt-2 grid grid-cols-2 md:grid-cols-4 gap-6">
+  {stats.map((stat, index) => (
+    <motion.div
+      key={stat.label}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, amount: 0.4 }}
+      transition={{
+        duration: 0.5,
+        delay: index * 0.08,
+      }}
+    >
+      <AnimatedStat
+        value={stat.value}
+        suffix={stat.suffix}
+        label={stat.label}
+      />
+    </motion.div>
+  ))}
+</div>
+
+</div>
+
+{/* Right Column */}
+
+<motion.div
+  className="hidden lg:flex justify-center"
+  initial={{ opacity: 0, scale: 0.94, x: 32 }}
+  animate={{ opacity: 1, scale: 1, x: 0 }}
+  transition={{ duration: 0.8, delay: 0.35 }}
+>
+  <PremiumHeroVisual />
+</motion.div>
+
+</div>
+</div>
+
+<div
+  className="absolute bottom-8 left-1/2 -translate-x-1/2 hero-item"
+  style={{ animationDelay: "1.55s" }}
+>
+  <ChevronDown className="w-6 h-6 text-zinc-500 animate-bounce" />
+</div>
+
+</section>
   );
 }

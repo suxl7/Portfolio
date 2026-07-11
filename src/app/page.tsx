@@ -6,7 +6,8 @@ import { motion } from "framer-motion";
 import { AnimatedSection, AnimatedDiv } from "@/components/AnimatedSection";
 import { SkillCard3D } from "@/components/SkillCard3D";
 import { PremiumBackground } from "@/components/PremiumBackground";
-import { Mail, MapPin, Code, Server, Cloud, Globe, Palette } from "lucide-react";
+import Image from "next/image";
+import { MapPin, Code, Server, Cloud, Globe, Palette } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
@@ -51,7 +52,7 @@ const skillCards = [
   {
     title: "DevOps & Cloud",
     description: "Deploying and scaling applications with modern cloud infrastructure and CI/CD",
-    skills: ["AWS", "Vercel", "Docker", "Google Cloud", "GitHub Actions", "Linux"],
+    skills: ["AWS", "Vercel", "Docker", "Google Cloud", "Linux"],
     color: "#8b5cf6",
     icon: <Cloud className="w-6 h-6" />,
     index: 2,
@@ -74,11 +75,30 @@ const skillCards = [
   },
 ];
 
-const contactItems = [
-  { icon: Mail, label: "Email", value: "chysushil34@gmail.com", href: "mailto:sushil@yourdomain.com", color: "#3b82f6" },
-  { icon: MapPin, label: "Location", value: "Godawari-1, Attariya Kailali", href: null, color: "#10b981" },
-  { icon: Github, label: "GitHub", value: "github.com/suxl7", href: "https://github.com/suxl7", color: "#8b5cf6" },
- 
+interface ContactItem {
+  imgIcon?: string;
+  svgIcon?: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
+  label: string;
+  value: string;
+  href: string | null;
+  color: string;
+}
+
+function ContactIcon({ item }: { item: ContactItem }) {
+  if (item.imgIcon) {
+    return <Image src={item.imgIcon} alt={item.label} width={24} height={24} style={{ height: "auto" }} className="object-contain" />;
+  }
+  if (item.svgIcon) {
+    const Icon = item.svgIcon;
+    return <Icon className="w-6 h-6" style={{ color: item.color }} />;
+  }
+  return null;
+}
+
+const contactItems: ContactItem[] = [
+  { imgIcon: "/icons/gmail.png",  label: "Email",    value: "chysushil34@gmail.com",       href: "mailto:chysushil34@gmail.com", color: "#3b82f6" },
+  { imgIcon: "/icons/address.png",              label: "Location", value: "Godawari-1, Attariya Kailali", href: null,                          color: "#10b981" },
+  { imgIcon: "/icons/github.png", label: "GitHub",   value: "github.com/suxl7",            href: "https://github.com/suxl7",    color: "#8b5cf6" },
 ];
 
 export default function Home() {
@@ -194,28 +214,7 @@ const handleSubmit = async (
                       or sharing knowledge through technical writing. I believe in clean code, continuous learning,
                       and building products that make a difference.
                     </p>
-                  </div>
-                  <div className="grid grid-cols-2 gap-6 pt-6 border-t border-zinc-200 dark:border-zinc-800">
-                    {[
-                     
-                      { value: "3+", label: "Projects Completed" },
-                      { value: "10+", label: "Technologies" },
-              
-                    ].map((stat, i) => (
-                      <motion.div
-                        key={i}
-                        className="text-center p-4 bg-white/80 dark:bg-white/[0.03] rounded-xl border border-zinc-200 dark:border-white/[0.08]"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.1 }}
-                        whileHover={{ y: -3 }}
-                      >
-                        <p className="text-3xl sm:text-4xl font-bold text-zinc-900 dark:text-zinc-100">{stat.value}</p>
-                        <p className="text-zinc-600 dark:text-zinc-400 text-sm mt-1">{stat.label}</p>
-                      </motion.div>
-                    ))}
-                  </div>
+                  </div>       
                 </div>
                 <div className="space-y-6">
                   <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">What I Do</h3>
@@ -343,7 +342,7 @@ const handleSubmit = async (
                         {item.href ? (
                           <a href={item.href} target="_blank" rel="noopener noreferrer" className="group relative flex items-start gap-4 p-4 rounded-xl bg-zinc-50 dark:bg-white/[0.03] border border-zinc-200 dark:border-white/[0.08] hover:border-blue-500/40 dark:hover:border-blue-500/40 transition-all">
                             <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: `linear-gradient(135deg, ${item.color}20, ${item.color}40)`, border: `1px solid ${item.color}30` }}>
-                              <item.icon className="w-6 h-6" style={{ color: item.color }} />
+                              <ContactIcon item={item} />
                             </div>
                             <div>
                               <p className="text-sm font-medium text-zinc-500 dark:text-zinc-500">{item.label}</p>
@@ -358,7 +357,7 @@ const handleSubmit = async (
                         ) : (
                           <div className="flex items-start gap-4 p-4 rounded-xl bg-zinc-50 dark:bg-white/[0.03] border border-zinc-200 dark:border-white/[0.08]">
                             <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: `linear-gradient(135deg, ${item.color}20, ${item.color}40)`, border: `1px solid ${item.color}30` }}>
-                              <item.icon className="w-6 h-6" style={{ color: item.color }} />
+                              <ContactIcon item={item} />
                             </div>
                             <div>
                               <p className="text-sm font-medium text-zinc-500 dark:text-zinc-500">{item.label}</p>

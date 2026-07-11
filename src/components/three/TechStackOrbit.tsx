@@ -4,8 +4,8 @@ import Image from "next/image";
 
 const technologies = [
   { name: "React", icon: "/icons/icons8-react-native-512.png", color: "#61dafb" },
-  { name: "Next.js", icon: "/next.svg", color: "#f8fafc" },
-  { name: "TypeScript", icon: "/window.svg", color: "#3b82f6" },
+  { name: "Next.js", icon: "/icons/Nextjs.png", color: "#f8fafc" },
+  { name: "TypeScript", icon: "/icons/typescript.png", color: "#3b82f6" },
   { name: "Python", icon: "/icons/python.png", color: "#3776ab" },
   { name: "AWS", icon: "/icons/icons8-aws-512.png", color: "#ff9900" },
   { name: "Google Cloud", icon: "/icons/icons8-google-cloud-512.png", color: "#4285f4" },
@@ -13,8 +13,8 @@ const technologies = [
   { name: "Postman", icon: "/icons/icons8-postman-inc-96.png", color: "#ff6c37" },
   { name: "GitHub", icon: "/icons/github (1).png", color: "#e8e6ee" },
   { name: "Vercel", icon: "/vercel.svg", color: "#f8fafc" },
-  { name: "Illustrator", icon: "/icons/mortarboard.png", color: "#ff9a00" },
-  { name: "Design", icon: "/icons/linkedin material.png", color: "#06b6d4" },
+  { name: "Illustrator", icon: "/icons/illustrator.png", color: "#ff9a00" },
+  { name: "Davinci Resolve", icon: "/icons/davinci.png", color: "#06b6d4" },
 ];
 
 export function TechStackOrbit() {

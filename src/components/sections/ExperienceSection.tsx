@@ -65,7 +65,7 @@ export function ExperienceSection() {
           viewport={{ once: true }}
         >
           <span className="inline-block text-sm font-mono text-blue-400 mb-4 tracking-widest uppercase">
-            04. Experience
+            Experience
           </span>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-zinc-900 dark:text-white">
             My{" "}
