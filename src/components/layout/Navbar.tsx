@@ -72,7 +72,8 @@ export function Navbar() {
             whileTap={{ scale: 0.96 }}
             data-cursor-hover
           >
-            <span className="relative font-extrabold text-lg tracking-tight bg-gradient-to-r from-blue-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent drop-shadow-[0_0_12px_rgba(139,92,246,0.5)] group-hover:drop-shadow-[0_0_18px_rgba(139,92,246,0.75)] transition-all duration-300">
+
+            <span className="relative font-sharpie font-extrabold text-3xl tracking-tight bg-gradient-to-r from-blue-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent drop-shadow-[0_0_12px_rgba(139,92,246,0.5)] group-hover:drop-shadow-[0_0_18px_rgba(139,92,246,0.75)] transition-all duration-300">
               Sushil
               <span className="absolute -bottom-0.5 left-0 w-full h-[1.5px] rounded-full bg-gradient-to-r from-blue-400 via-violet-400 to-fuchsia-400 opacity-0 group-hover:opacity-70 scale-x-0 group-hover:scale-x-100 transition-all duration-300 origin-left" />
             </span>
@@ -149,7 +150,7 @@ export function Navbar() {
                       color: isActive ? "#22c55e" : isHovered ? "#b6ae9f" : "#71717a",
                     }}
                     transition={{ type: "spring", stiffness: 340, damping: 28 }}
-                    style={{ display: "block" }}
+                    style={{ display: "block", maxWidth: 0 }}
                   >
                     {link.label}
                   </motion.span>

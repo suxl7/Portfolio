@@ -287,10 +287,7 @@ const handleSubmit = async (
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-              >
-                <h3 className="text-center text-2xl font-bold text-slate-900 dark:text-zinc-100 mb-8">
-                  Core Tooling
-                </h3>
+              >        
                 <TechStackOrbit />
               </motion.div>
             </div>

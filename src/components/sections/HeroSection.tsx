@@ -7,9 +7,11 @@ import { Download, Mail, ChevronDown } from "lucide-react";
 import AnimatedStat from "@/components/AnimatedStat";
 
 const roles = [
-  "Full Stack Developer",
+  "Full Stack Web Developer",
+  "UI|UX Designer",
   "Cloud Learner",
   "AI ML Enthusiast",
+
 ];
 
 const stats = [
