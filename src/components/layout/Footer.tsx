@@ -24,10 +24,9 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative py-12 border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-zinc-100 dark:from-zinc-900 to-transparent opacity-50" />
-      
+    <footer className="relative py-12 border-t border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-100 dark:from-zinc-900 to-transparent opacity-50" />
+
       <div className="section-container relative z-10">
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-10 mb-10">
           {/* Brand */}
@@ -41,19 +40,19 @@ export function Footer() {
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
                 <span className="text-white font-bold text-lg">S</span>
               </div>
-              <span className="text-xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
+              <span className="text-xl font-bold text-slate-900 dark:text-zinc-100 tracking-tight">
                 Sushil<span className="text-blue-500">.</span>
               </span>
             </motion.div>
-            <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
-              Computer Engineering graduate passionate about building scalable applications, 
+            <p className="text-slate-500 dark:text-zinc-400 text-sm leading-relaxed">
+              Computer Engineering graduate passionate about building scalable applications,
               exploring AI/ML and Cloud and creating impactful solutions.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-4 uppercase tracking-wider">
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-zinc-100 mb-4 uppercase tracking-wider">
               Quick Links
             </h3>
             <motion.div
@@ -66,7 +65,7 @@ export function Footer() {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors nav-link"
+                  className="text-sm text-slate-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors nav-link"
                   data-cursor-hover
                 >
                   {link.label}
@@ -77,7 +76,7 @@ export function Footer() {
 
           {/* Social Links */}
           <div>
-            <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-4 uppercase tracking-wider">
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-zinc-100 mb-4 uppercase tracking-wider">
               Connect
             </h3>
             <motion.div
@@ -92,7 +91,7 @@ export function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-xl glass border border-zinc-200 dark:border-zinc-700 flex items-center justify-center hover:border-blue-500/50 transition-colors social-link"
+                  className="w-10 h-10 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-zinc-700 flex items-center justify-center hover:border-blue-500/50 hover:shadow-sm transition-all social-link shadow-[0_1px_3px_rgba(15,23,42,0.06)]"
                   aria-label={social.label}
                   data-cursor-hover
                 >
@@ -104,16 +103,15 @@ export function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-zinc-200 dark:border-zinc-800 pt-8">
+        <div className="border-t border-slate-200 dark:border-zinc-800 pt-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-zinc-500 flex items-center gap-1">
+            <p className="text-sm text-slate-500 dark:text-zinc-500 flex items-center gap-1">
               © {new Date().getFullYear()} Sushil. Built with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> using Next.js, Tailwind CSS & Framer Motion
             </p>
-            
-            {/* Back to top button */}
+
             <motion.button
               onClick={scrollToTop}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl glass border border-zinc-200 dark:border-zinc-700 text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors nav-link"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-zinc-700 text-sm text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-100 hover:border-slate-300 dark:hover:border-zinc-600 transition-all shadow-sm nav-link"
               whileHover={{ y: -2 }}
               data-cursor-hover
             >

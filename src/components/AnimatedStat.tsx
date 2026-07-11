@@ -85,7 +85,7 @@ export default function AnimatedStat({
 
       {/* Card */}
 
-      <div className="relative rounded-2xl border border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl p-6 transition-all duration-300 group-hover:border-blue-500/40">
+      <div className="relative rounded-2xl border border-slate-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/70 backdrop-blur-xl p-6 transition-all duration-300 group-hover:border-blue-500/40 shadow-[0_1px_4px_rgba(15,23,42,0.06)] dark:shadow-none">
 
         <motion.h3
           className="text-3xl font-black text-blue-600 dark:text-blue-400"

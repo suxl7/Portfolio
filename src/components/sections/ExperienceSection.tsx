@@ -54,7 +54,7 @@ export function ExperienceSection() {
 
   return (
     <section id="experience" className="section-py relative overflow-hidden">
-      <div className="absolute inset-0 bg-zinc-50 dark:bg-zinc-950/50" />
+      <div className="absolute inset-0 bg-slate-50 dark:bg-zinc-950/50" />
 
       <div className="section-container relative z-10">
         {/* Header */}
@@ -64,10 +64,10 @@ export function ExperienceSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <span className="inline-block text-sm font-mono text-blue-400 mb-4 tracking-widest uppercase">
+          <span className="inline-block text-sm font-mono text-blue-600 dark:text-blue-400 mb-4 tracking-widest uppercase">
             Experience
           </span>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-zinc-900 dark:text-white">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white">
             My{" "}
             <span className="text-gradient">Journey</span>
           </h2>
@@ -99,7 +99,7 @@ export function ExperienceSection() {
                 {/* Card */}
                 <div
                   className={`glass border rounded-2xl overflow-hidden transition-all ${
-                    expanded === exp.id ? "border-opacity-60" : "border-zinc-200/50 dark:border-zinc-700/50"
+                    expanded === exp.id ? "border-opacity-60" : "border-slate-200/70 dark:border-zinc-700/50"
                   }`}
                   style={expanded === exp.id ? { borderColor: `${exp.color}50` } : {}}
                 >
@@ -119,8 +119,8 @@ export function ExperienceSection() {
                         <span className="text-xs text-zinc-500 font-mono">{exp.period}</span>
                         <span className="text-xs text-zinc-500">· {exp.duration}</span>
                       </div>
-                      <h3 className="font-bold text-zinc-900 dark:text-white">{exp.title}</h3>
-                      <p className="text-sm text-zinc-500 mt-0.5">{exp.company}</p>
+                      <h3 className="font-bold text-slate-900 dark:text-white">{exp.title}</h3>
+                      <p className="text-sm text-slate-500 mt-0.5">{exp.company}</p>
                     </div>
                     <motion.div
                       animate={{ rotate: expanded === exp.id ? 180 : 0 }}
@@ -141,16 +141,16 @@ export function ExperienceSection() {
                         transition={{ duration: 0.3 }}
                         className="overflow-hidden"
                       >
-                        <div className="px-5 pb-5 space-y-4 border-t border-zinc-200/50 dark:border-zinc-700/50 pt-4">
-                          <p className="text-sm text-zinc-600 dark:text-zinc-400">{exp.description}</p>
+                        <div className="px-5 pb-5 space-y-4 border-t border-slate-200/60 dark:border-zinc-700/50 pt-4">
+                          <p className="text-sm text-slate-600 dark:text-zinc-400">{exp.description}</p>
 
                           <div>
-                            <h4 className="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-3">Key Highlights</h4>
+                            <h4 className="text-xs font-mono text-slate-400 dark:text-zinc-500 uppercase tracking-wider mb-3">Key Highlights</h4>
                             <ul className="space-y-2">
                               {exp.highlights.map((h, j) => (
                                 <motion.li
                                   key={j}
-                                  className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400"
+                                  className="flex items-start gap-2 text-sm text-slate-600 dark:text-zinc-400"
                                   initial={{ opacity: 0, x: -10 }}
                                   animate={{ opacity: 1, x: 0 }}
                                   transition={{ delay: j * 0.05 }}
@@ -163,7 +163,7 @@ export function ExperienceSection() {
                           </div>
 
                           <div>
-                            <h4 className="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-3">Skills Used</h4>
+                            <h4 className="text-xs font-mono text-slate-400 dark:text-zinc-500 uppercase tracking-wider mb-3">Skills Used</h4>
                             <div className="flex flex-wrap gap-2">
                               {exp.skills.map((skill) => (
                                 <span

@@ -132,9 +132,9 @@ function CertLightbox({ cert, onClose }: { cert: Certification; onClose: () => v
 
   return (
     <AnimatePresence>
-      {/* Backdrop */}
+      {/* Backdrop — full-viewport shell */}
       <motion.div
-        className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/80 backdrop-blur-md"
+        className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -147,97 +147,160 @@ function CertLightbox({ cert, onClose }: { cert: Certification; onClose: () => v
         tabIndex={-1}
         style={{ outline: "none" }}
       >
-        {/* Floating controls — top-right */}
-        <motion.div
-          className="fixed top-5 right-5 z-[60] flex flex-col gap-2 sm:flex-row"
-          initial={{ opacity: 0, y: -12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ delay: 0.15, duration: 0.3 }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* Zoom controls pill */}
-          <div className="flex items-center gap-1 rounded-full border border-white/15 bg-white/10 px-2 py-1.5 backdrop-blur-xl shadow-xl">
-            {controls.map(({ icon: Icon, label, action, disabled }) => (
-              <motion.button
-                key={label}
-                type="button"
-                onClick={action}
-                disabled={disabled}
-                aria-label={label}
-                title={label}
-                whileHover={disabled ? {} : { scale: 1.15 }}
-                whileTap={disabled ? {} : { scale: 0.9 }}
-                className="flex h-8 w-8 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/20 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
-              >
-                <Icon className="h-3.5 w-3.5" />
-              </motion.button>
-            ))}
-            <span className="ml-1 mr-1 font-mono text-xs text-white/50 select-none min-w-[3ch] text-center">
-              {Math.round(zoom * 100)}%
-            </span>
-          </div>
-
-          {/* Download + Close pill */}
-          <div className="flex items-center gap-1 rounded-full border border-white/15 bg-white/10 px-2 py-1.5 backdrop-blur-xl shadow-xl">
+        {/* ── Mobile layout: flex column, sticky header + scrollable body ── */}
+        <div className="flex flex-col h-[100dvh] md:hidden">
+          {/* Sticky mobile header */}
+          <div
+            className="flex-shrink-0 flex items-center gap-3 px-4 border-b border-white/10 bg-black/60 backdrop-blur-xl"
+            style={{ paddingTop: "max(0.75rem, env(safe-area-inset-top))", paddingBottom: "0.75rem" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <p className="flex-1 min-w-0 text-sm font-semibold text-white/90 truncate">
+              {cert.title}
+            </p>
             <motion.button
               type="button"
               onClick={() => downloadFile(cert.downloadUrl, cert.fileName)}
               aria-label="Download certificate"
-              title="Download certificate"
-              whileHover={{ scale: 1.15 }}
               whileTap={{ scale: 0.9 }}
-              className="flex h-8 w-8 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/20 hover:text-white"
+              className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white/80 hover:bg-white/20 hover:text-white transition-colors"
             >
-              <Download className="h-3.5 w-3.5" />
+              <Download className="h-4 w-4" />
             </motion.button>
             <motion.button
               type="button"
               onClick={onClose}
               aria-label="Close certificate preview"
-              title="Close"
-              whileHover={{ scale: 1.15 }}
               whileTap={{ scale: 0.9 }}
-              className="flex h-8 w-8 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-red-500/70 hover:text-white"
+              className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white/80 hover:bg-red-500/70 hover:text-white transition-colors"
             >
-              <X className="h-3.5 w-3.5" />
+              <X className="h-4 w-4" />
             </motion.button>
           </div>
-        </motion.div>
 
-        {/* Certificate image */}
-        <motion.div
-          className="relative mx-auto my-16 w-full max-w-[1100px] px-4 cursor-zoom-in"
-          initial={{ opacity: 0, scale: 0.94, y: 24 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.94, y: 24 }}
-          transition={{ type: "spring", stiffness: 280, damping: 28 }}
-          onClick={(e) => e.stopPropagation()}
-          onDoubleClick={onDoubleClick}
-          ref={wheelRef}
-        >
-          <motion.div
-            animate={{ scale: zoom }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="origin-top"
-          >
-            <div
-              className="rounded-2xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)]"
-              style={{ background: "rgba(255,255,255,0.03)" }}
+          {/* Scrollable certificate area */}
+          <div className="flex-1 overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <motion.div
+              className="w-full px-3 py-6"
+              initial={{ opacity: 0, scale: 0.94, y: 24 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: 24 }}
+              transition={{ type: "spring", stiffness: 280, damping: 28 }}
+              onDoubleClick={onDoubleClick}
             >
-              <Image
-                src={cert.previewImage}
-                alt={`${cert.title} certificate issued by ${cert.issuer}`}
-                width={1200}
-                height={850}
-                className="w-full h-auto block"
-                priority
-                draggable={false}
-                style={{ userSelect: "none" }}
-              />
+              <div
+                className="rounded-2xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)]"
+                style={{ background: "rgba(255,255,255,0.03)" }}
+              >
+                <Image
+                  src={cert.previewImage}
+                  alt={`${cert.title} certificate issued by ${cert.issuer}`}
+                  width={1200}
+                  height={850}
+                  className="w-full h-auto block"
+                  priority
+                  draggable={false}
+                  style={{ userSelect: "none" }}
+                />
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* ── Desktop layout: original, completely unchanged ── */}
+        <div className="hidden md:block overflow-y-auto h-full">
+          {/* Floating controls — top-right */}
+          <motion.div
+            className="fixed top-5 right-5 z-[60] flex flex-col gap-2 sm:flex-row"
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ delay: 0.15, duration: 0.3 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Zoom controls pill */}
+            <div className="flex items-center gap-1 rounded-full border border-white/15 bg-white/10 px-2 py-1.5 backdrop-blur-xl shadow-xl">
+              {controls.map(({ icon: Icon, label, action, disabled }) => (
+                <motion.button
+                  key={label}
+                  type="button"
+                  onClick={action}
+                  disabled={disabled}
+                  aria-label={label}
+                  title={label}
+                  whileHover={disabled ? {} : { scale: 1.15 }}
+                  whileTap={disabled ? {} : { scale: 0.9 }}
+                  className="flex h-8 w-8 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/20 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  <Icon className="h-3.5 w-3.5" />
+                </motion.button>
+              ))}
+              <span className="ml-1 mr-1 font-mono text-xs text-white/50 select-none min-w-[3ch] text-center">
+                {Math.round(zoom * 100)}%
+              </span>
+            </div>
+
+            {/* Download + Close pill */}
+            <div className="flex items-center gap-1 rounded-full border border-white/15 bg-white/10 px-2 py-1.5 backdrop-blur-xl shadow-xl">
+              <motion.button
+                type="button"
+                onClick={() => downloadFile(cert.downloadUrl, cert.fileName)}
+                aria-label="Download certificate"
+                title="Download certificate"
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.9 }}
+                className="flex h-8 w-8 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/20 hover:text-white"
+              >
+                <Download className="h-3.5 w-3.5" />
+              </motion.button>
+              <motion.button
+                type="button"
+                onClick={onClose}
+                aria-label="Close certificate preview"
+                title="Close"
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.9 }}
+                className="flex h-8 w-8 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-red-500/70 hover:text-white"
+              >
+                <X className="h-3.5 w-3.5" />
+              </motion.button>
             </div>
           </motion.div>
-        </motion.div>
+
+          {/* Certificate image */}
+          <motion.div
+            className="relative mx-auto my-16 w-full max-w-[1100px] px-4 cursor-zoom-in"
+            initial={{ opacity: 0, scale: 0.94, y: 24 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.94, y: 24 }}
+            transition={{ type: "spring", stiffness: 280, damping: 28 }}
+            onClick={(e) => e.stopPropagation()}
+            onDoubleClick={onDoubleClick}
+            ref={wheelRef}
+          >
+            <motion.div
+              animate={{ scale: zoom }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="origin-top"
+            >
+              <div
+                className="rounded-2xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)]"
+                style={{ background: "rgba(255,255,255,0.03)" }}
+              >
+                <Image
+                  src={cert.previewImage}
+                  alt={`${cert.title} certificate issued by ${cert.issuer}`}
+                  width={1200}
+                  height={850}
+                  className="w-full h-auto block"
+                  priority
+                  draggable={false}
+                  style={{ userSelect: "none" }}
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
       </motion.div>
     </AnimatePresence>
   );
@@ -262,10 +325,10 @@ export function CertificationsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <span className="inline-block text-sm font-mono text-blue-400 mb-4 tracking-widest uppercase">
+          <span className="inline-block text-sm font-mono text-blue-600 dark:text-blue-400 mb-4 tracking-widest uppercase">
             Certifications
           </span>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-zinc-900 dark:text-white">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white">
             Foundational <span className="text-gradient">Credentials</span>
           </h2>
           <p className="mt-4 text-zinc-500 max-w-xl mx-auto" />
@@ -284,7 +347,7 @@ export function CertificationsSection() {
             return (
             <motion.div
               key={cert.credentialId}
-              className="group relative rounded-3xl overflow-hidden border border-zinc-200/50 dark:border-zinc-700/50 bg-white dark:bg-zinc-900 cursor-pointer"
+              className="group relative rounded-3xl overflow-hidden border border-slate-200/80 dark:border-zinc-700/50 bg-white dark:bg-zinc-900 cursor-pointer shadow-[0_2px_12px_rgba(15,23,42,0.07)] dark:shadow-none"
               whileHover={{ y: -6, boxShadow: `0 0 0 2px ${cert.color}50, 0 30px 60px ${cert.color}15` }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
               onClick={() => toggleExpand(cert.credentialId)}
@@ -332,7 +395,7 @@ export function CertificationsSection() {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-xl font-black text-zinc-900 dark:text-white mb-3 leading-tight">
+                    <h3 className="text-xl font-black text-slate-900 dark:text-white mb-3 leading-tight">
                       {cert.title}
                     </h3>
 
@@ -361,12 +424,12 @@ export function CertificationsSection() {
                           style={{ overflow: "hidden" }}
                         >
                           {/* Description */}
-                          <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-5">
+                          <p className="text-sm text-slate-500 dark:text-zinc-400 leading-relaxed mb-5">
                             {cert.description}
                           </p>
 
                           {/* Meta row */}
-                          <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-500 mb-5">
+                          <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500 dark:text-zinc-500 mb-5">
                             <span className="flex items-center gap-1.5">
                               <Calendar className="w-3.5 h-3.5" /> {cert.date}
                             </span>
@@ -439,10 +502,10 @@ export function CertificationsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <div className="inline-flex items-center gap-3 glass border border-zinc-200/50 dark:border-zinc-700/50 rounded-full px-6 py-3">
+          <div className="inline-flex items-center gap-3 bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-zinc-700/50 rounded-full px-6 py-3 shadow-sm">
             <Award className="w-5 h-5 text-yellow-500" />
-            <span className="text-sm text-zinc-600 dark:text-zinc-400">
-              <span className="font-bold text-zinc-900 dark:text-white">{certifications.length}</span> foundational certifications
+            <span className="text-sm text-slate-600 dark:text-zinc-400">
+              <span className="font-bold text-slate-900 dark:text-white">{certifications.length}</span> foundational certifications
             </span>
           </div>
         </motion.div>

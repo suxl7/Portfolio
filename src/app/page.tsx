@@ -186,7 +186,7 @@ const handleSubmit = async (
           <HeroSection />
 
           {/* About Section */}
-          <AnimatedSection id="about" variant="slide-up" className="section-py bg-white/80 dark:bg-zinc-950/35 relative">
+          <AnimatedSection id="about" variant="slide-up" className="section-py bg-white/90 dark:bg-zinc-950/35 relative">
             <div className="section-container">
               <div className="text-center mb-16">
                 <motion.span
@@ -198,18 +198,18 @@ const handleSubmit = async (
                 >
                   About Me
                 </motion.span>
-                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-zinc-900 dark:text-zinc-100">
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-zinc-100">
                   Get to Know Me <span className="text-blue-600 dark:text-blue-400">Better</span>
                 </h2>
               </div>
               <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
                 <div className="space-y-8">
                   <div className="space-y-4">
-                    <p className="text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                    <p className="text-lg text-slate-600 dark:text-zinc-300 leading-relaxed">
                       I&apos;m a passionate Full Stack Developer with experience building scalable web applications.
                       I specialize in creating intuitive, performant, and accessible user experiences using modern technologies.
                     </p>
-                    <p className="text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                    <p className="text-lg text-slate-600 dark:text-zinc-300 leading-relaxed">
                       When I&apos;m not coding, you&apos;ll find me exploring new technologies, contributing to open-source projects,
                       or sharing knowledge through technical writing. I believe in clean code, continuous learning,
                       and building products that make a difference.
@@ -217,7 +217,7 @@ const handleSubmit = async (
                   </div>       
                 </div>
                 <div className="space-y-6">
-                  <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">What I Do</h3>
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-zinc-100">What I Do</h3>
                   <div className="space-y-4">
                     {[
                       { title: "Frontend Development", desc: "Building responsive, accessible UIs with React, Next.js, TypeScript, and Tailwind CSS", icon: <Code className="w-6 h-6" />, color: "#3b82f6" },
@@ -228,7 +228,7 @@ const handleSubmit = async (
                     ].map((item, i) => (
                       <motion.div
                         key={i}
-                        className="group relative flex gap-4 p-6 bg-white/80 dark:bg-white/[0.03] rounded-xl border border-zinc-200 dark:border-white/[0.08] overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:border-blue-500/30"
+                        className="group relative flex gap-4 p-6 bg-white dark:bg-white/[0.03] rounded-xl border border-slate-200/80 dark:border-white/[0.08] overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:border-blue-500/30 shadow-[0_1px_4px_rgba(15,23,42,0.06)] dark:shadow-none"
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -242,8 +242,8 @@ const handleSubmit = async (
                           <span style={{ color: item.color }}>{item.icon}</span>
                         </motion.div>
                         <div className="flex-1">
-                          <h4 className="font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{item.title}</h4>
-                          <p className="text-zinc-600 dark:text-zinc-400 text-sm mt-1">{item.desc}</p>
+                          <h4 className="font-semibold text-slate-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{item.title}</h4>
+                          <p className="text-slate-500 dark:text-zinc-400 text-sm mt-1">{item.desc}</p>
                         </div>
                         <motion.div
                           className="absolute bottom-0 right-0 w-16 h-16 rounded-full opacity-0 group-hover:opacity-10 pointer-events-none"
@@ -259,7 +259,7 @@ const handleSubmit = async (
           </AnimatedSection>
 
           {/* Skills Section */}
-          <AnimatedSection id="skills" variant="slide-up" className="section-py bg-zinc-50/80 dark:bg-zinc-900/30 relative">
+          <AnimatedSection id="skills" variant="slide-up" className="section-py bg-slate-50/90 dark:bg-zinc-900/30 relative">
             <div className="section-container relative z-10">
               <div className="text-center mb-16">
                 <motion.span
@@ -271,7 +271,7 @@ const handleSubmit = async (
                 >
                   Skills
                 </motion.span>
-                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-zinc-900 dark:text-zinc-100">
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-zinc-100">
                   Technologies <span className="text-blue-600 dark:text-blue-400">& Tools</span>
                 </h2>
               </div>
@@ -288,7 +288,7 @@ const handleSubmit = async (
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                <h3 className="text-center text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-8">
+                <h3 className="text-center text-2xl font-bold text-slate-900 dark:text-zinc-100 mb-8">
                   Core Tooling
                 </h3>
                 <TechStackOrbit />
@@ -309,7 +309,7 @@ const handleSubmit = async (
           <EducationSection />
 
           {/* Contact Section */}
-          <AnimatedSection id="contact" variant="slide-up" className="section-py bg-white/80 dark:bg-zinc-950/35 relative">
+          <AnimatedSection id="contact" variant="slide-up" className="section-py bg-white/90 dark:bg-zinc-950/35 relative">
             <div className="section-container">
               <div className="text-center mb-16">
                 <motion.span
@@ -321,10 +321,10 @@ const handleSubmit = async (
                 >
                   Contact
                 </motion.span>
-                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-zinc-900 dark:text-zinc-100">
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-zinc-100">
                   Let&apos;s <span className="text-blue-600 dark:text-blue-400">Work Together</span>
                 </h2>
-                <p className="mt-6 text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
+                <p className="mt-6 text-lg text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto">
                   Have a project in mind or just want to say hi? I&apos;d love to hear from you.
                 </p>
               </div>
@@ -340,13 +340,13 @@ const handleSubmit = async (
                         transition={{ delay: 0.1 + i * 0.1 }}
                       >
                         {item.href ? (
-                          <a href={item.href} target="_blank" rel="noopener noreferrer" className="group relative flex items-start gap-4 p-4 rounded-xl bg-zinc-50 dark:bg-white/[0.03] border border-zinc-200 dark:border-white/[0.08] hover:border-blue-500/40 dark:hover:border-blue-500/40 transition-all">
+                          <a href={item.href} target="_blank" rel="noopener noreferrer" className="group relative flex items-start gap-4 p-4 rounded-xl bg-white dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.08] hover:border-blue-500/40 dark:hover:border-blue-500/40 transition-all shadow-[0_1px_4px_rgba(15,23,42,0.05)] dark:shadow-none">
                             <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: `linear-gradient(135deg, ${item.color}20, ${item.color}40)`, border: `1px solid ${item.color}30` }}>
                               <ContactIcon item={item} />
                             </div>
                             <div>
-                              <p className="text-sm font-medium text-zinc-500 dark:text-zinc-500">{item.label}</p>
-                              <p className="text-zinc-900 dark:text-zinc-100 mt-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{item.value}</p>
+                              <p className="text-sm font-medium text-slate-400 dark:text-zinc-500">{item.label}</p>
+                              <p className="text-slate-900 dark:text-zinc-100 mt-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{item.value}</p>
                             </div>
                             <motion.div
                               className="absolute inset-0 rounded-2xl opacity-0"
@@ -355,13 +355,13 @@ const handleSubmit = async (
                             />
                           </a>
                         ) : (
-                          <div className="flex items-start gap-4 p-4 rounded-xl bg-zinc-50 dark:bg-white/[0.03] border border-zinc-200 dark:border-white/[0.08]">
+                          <div className="flex items-start gap-4 p-4 rounded-xl bg-white dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.08] shadow-[0_1px_4px_rgba(15,23,42,0.05)] dark:shadow-none">
                             <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: `linear-gradient(135deg, ${item.color}20, ${item.color}40)`, border: `1px solid ${item.color}30` }}>
                               <ContactIcon item={item} />
                             </div>
                             <div>
-                              <p className="text-sm font-medium text-zinc-500 dark:text-zinc-500">{item.label}</p>
-                              <p className="text-zinc-900 dark:text-zinc-100 mt-1">{item.value}</p>
+                              <p className="text-sm font-medium text-slate-400 dark:text-zinc-500">{item.label}</p>
+                              <p className="text-slate-900 dark:text-zinc-100 mt-1">{item.value}</p>
                             </div>
                           </div>
                         )}
@@ -369,7 +369,7 @@ const handleSubmit = async (
                     ))}
                   </div>
                   <motion.div
-                    className="flex gap-4 pt-6 border-t border-zinc-200 dark:border-zinc-800"
+                    className="flex gap-4 pt-6 border-t border-slate-200 dark:border-zinc-800"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -383,7 +383,7 @@ const handleSubmit = async (
                 </div>
                 <form
   onSubmit={handleSubmit}
-  className="group relative bg-zinc-50 dark:bg-white/[0.03] rounded-xl border border-zinc-200 dark:border-white/[0.08] p-6 sm:p-8 space-y-6 overflow-hidden"
+  className="group relative bg-white dark:bg-white/[0.03] rounded-xl border border-slate-200/80 dark:border-white/[0.08] p-6 sm:p-8 space-y-6 overflow-hidden shadow-[0_2px_12px_rgba(15,23,42,0.07)] dark:shadow-none"
 >
   {/* Background Effect */}
   <div className="absolute inset-0 pointer-events-none rounded-xl bg-gradient-to-br from-blue-500/5 via-transparent to-indigo-500/5" />
@@ -393,7 +393,7 @@ const handleSubmit = async (
     <div>
       <label
         htmlFor="name"
-        className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2"
+        className="block text-sm font-medium text-slate-700 dark:text-zinc-300 mb-2"
       >
         Name
       </label>
@@ -406,7 +406,7 @@ const handleSubmit = async (
         onChange={(e) =>
           setFormData({ ...formData, name: e.target.value })
         }
-        className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+        className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
         placeholder="Your Name"
       />
     </div>
@@ -414,7 +414,7 @@ const handleSubmit = async (
     <div>
       <label
         htmlFor="email"
-        className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2"
+        className="block text-sm font-medium text-slate-700 dark:text-zinc-300 mb-2"
       >
         Email
       </label>
@@ -427,7 +427,7 @@ const handleSubmit = async (
         onChange={(e) =>
           setFormData({ ...formData, email: e.target.value })
         }
-        className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+        className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
         placeholder="your@email.com"
       />
     </div>
@@ -437,7 +437,7 @@ const handleSubmit = async (
   <div className="relative z-10">
     <label
       htmlFor="subject"
-      className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2"
+      className="block text-sm font-medium text-slate-700 dark:text-zinc-300 mb-2"
     >
       Subject
     </label>
@@ -450,7 +450,7 @@ const handleSubmit = async (
       onChange={(e) =>
         setFormData({ ...formData, subject: e.target.value })
       }
-      className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+      className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
       placeholder="Project Inquiry"
     />
   </div>
@@ -459,7 +459,7 @@ const handleSubmit = async (
   <div className="relative z-10">
     <label
       htmlFor="message"
-      className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2"
+      className="block text-sm font-medium text-slate-700 dark:text-zinc-300 mb-2"
     >
       Message (Optional)
     </label>
@@ -471,7 +471,7 @@ const handleSubmit = async (
       onChange={(e) =>
         setFormData({ ...formData, message: e.target.value })
       }
-      className="w-full min-h-[160px] px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+      className="w-full min-h-[160px] px-4 py-3 rounded-xl border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
       placeholder="Tell me about your project..."
     />
   </div>

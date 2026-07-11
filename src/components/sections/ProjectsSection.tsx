@@ -86,7 +86,7 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
     >
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
       <motion.div
-        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto glass-dark rounded-2xl border border-zinc-700/50 shadow-2xl"
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-zinc-900 rounded-2xl border border-slate-200 dark:border-zinc-700/50 shadow-[0_24px_80px_rgba(15,23,42,0.18)] dark:shadow-2xl"
         initial={{ scale: 0.9, y: 20 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 20 }}
@@ -95,7 +95,7 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
         {/* Accent bar */}
         <div className="h-1 w-full rounded-t-2xl" style={{ background: `linear-gradient(90deg, ${project.color}, ${project.color}60)` }} />
 
-        <div className="p-6 border-b border-zinc-700/50 flex items-start justify-between gap-4">
+        <div className="p-6 border-b border-slate-200 dark:border-zinc-700/50 flex items-start justify-between gap-4">
           <div>
             <span
               className="text-xs font-mono px-2 py-0.5 rounded-full mb-2 inline-block"
@@ -103,32 +103,32 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
             >
               {project.category}
             </span>
-            <h3 className="text-xl font-bold text-white">{project.title}</h3>
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white">{project.title}</h3>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-zinc-400 hover:text-white hover:bg-zinc-700 transition-colors flex-shrink-0"
+            className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-zinc-700 transition-colors flex-shrink-0"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         <div className="p-6 space-y-6">
-          <p className="text-zinc-300 leading-relaxed">{project.longDescription}</p>
+          <p className="text-slate-600 dark:text-zinc-300 leading-relaxed">{project.longDescription}</p>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 rounded-xl bg-zinc-800/50 border border-zinc-700/50">
-              <h4 className="text-xs font-mono text-zinc-500 mb-2 uppercase tracking-wider">Challenge</h4>
-              <p className="text-sm text-zinc-300">{project.challenges}</p>
+            <div className="p-4 rounded-xl bg-slate-50 dark:bg-zinc-800/50 border border-slate-200 dark:border-zinc-700/50">
+              <h4 className="text-xs font-mono text-slate-400 dark:text-zinc-500 mb-2 uppercase tracking-wider">Challenge</h4>
+              <p className="text-sm text-slate-700 dark:text-zinc-300">{project.challenges}</p>
             </div>
-            <div className="p-4 rounded-xl bg-zinc-800/50 border border-zinc-700/50">
-              <h4 className="text-xs font-mono text-zinc-500 mb-2 uppercase tracking-wider">Solution</h4>
-              <p className="text-sm text-zinc-300">{project.solution}</p>
+            <div className="p-4 rounded-xl bg-slate-50 dark:bg-zinc-800/50 border border-slate-200 dark:border-zinc-700/50">
+              <h4 className="text-xs font-mono text-slate-400 dark:text-zinc-500 mb-2 uppercase tracking-wider">Solution</h4>
+              <p className="text-sm text-slate-700 dark:text-zinc-300">{project.solution}</p>
             </div>
           </div>
 
           <div>
-            <h4 className="text-xs font-mono text-zinc-500 mb-3 uppercase tracking-wider">Technologies</h4>
+            <h4 className="text-xs font-mono text-slate-400 dark:text-zinc-500 mb-3 uppercase tracking-wider">Technologies</h4>
             <div className="flex flex-wrap gap-2">
               {project.tags.map((tag) => (
                 <span
@@ -148,7 +148,7 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700 hover:border-zinc-500 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-zinc-700 hover:border-slate-400 dark:hover:border-zinc-500 transition-colors"
               >
                 <GithubIconLg /> View Code
               </a>
@@ -187,13 +187,13 @@ export function ProjectsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <span className="inline-block text-sm font-mono text-blue-400 mb-4 tracking-widest uppercase">
+          <span className="inline-block text-sm font-mono text-blue-600 dark:text-blue-400 mb-4 tracking-widest uppercase">
             Projects
           </span>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-zinc-900 dark:text-white">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white">
             Featured <span className="text-gradient">Work</span>
           </h2>
-          <p className="mt-4 text-zinc-500 max-w-xl mx-auto">
+          <p className="mt-4 text-slate-500 dark:text-zinc-500 max-w-xl mx-auto">
             A selection of projects that showcase my skills and passion for building.
           </p>
         </motion.div>
@@ -212,7 +212,7 @@ export function ProjectsSection() {
               className={`px-4 py-2 rounded-xl text-sm font-medium transition-all nav-link ${
                 activeCategory === cat
                   ? "bg-blue-600 text-white shadow-lg shadow-blue-500/30"
-                  : "glass border border-zinc-200/50 dark:border-zinc-700/50 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
+                  : "bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-zinc-700/50 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-100 hover:border-slate-300 dark:hover:border-zinc-600 shadow-sm"
               }`}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -234,8 +234,7 @@ export function ProjectsSection() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3, delay: i * 0.05 }}
-                className="group relative rounded-2xl overflow-hidden cursor-pointer border border-zinc-200/50 dark:border-zinc-700/50 bg-white dark:bg-zinc-900 hover:border-transparent transition-all duration-300"
-                style={{ boxShadow: "0 0 0 0 transparent" }}
+                className="group relative rounded-2xl overflow-hidden cursor-pointer border border-slate-200/80 dark:border-zinc-700/50 bg-white dark:bg-zinc-900 hover:border-transparent transition-all duration-300 shadow-[0_1px_4px_rgba(15,23,42,0.06)] dark:shadow-none"
                 whileHover={{ y: -6, boxShadow: `0 0 0 2px ${project.color}60, 0 20px 40px ${project.color}15` }}
                 onClick={() => setSelectedProject(project)}
                 data-cursor-hover
@@ -268,12 +267,12 @@ export function ProjectsSection() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-blue-400 transition-colors duration-200">
+                  <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
                     {project.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-5 line-clamp-2 flex-1">
+                  <p className="text-sm text-slate-500 dark:text-zinc-400 leading-relaxed mb-5 line-clamp-2 flex-1">
                     {project.description}
                   </p>
 
@@ -294,14 +293,14 @@ export function ProjectsSection() {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex items-center gap-3 pt-4 border-t border-zinc-100 dark:border-zinc-800">
+                  <div className="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-zinc-800">
                     {project.github && (
                       <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="flex items-center gap-1.5 text-xs font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors nav-link"
+                        className="flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-slate-900 dark:hover:text-zinc-100 transition-colors nav-link"
                         data-cursor-hover
                       >
                         <GithubIcon /> GitHub
@@ -321,7 +320,7 @@ export function ProjectsSection() {
                       </a>
                     )}
                     <button
-                      className="ml-auto flex items-center gap-1 text-xs font-medium text-zinc-400 hover:text-blue-400 transition-colors group/btn nav-link"
+                      className="ml-auto flex items-center gap-1 text-xs font-medium text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors group/btn nav-link"
                       onClick={(e) => { e.stopPropagation(); setSelectedProject(project); }}
                       data-cursor-hover
                     >
