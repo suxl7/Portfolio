@@ -25,26 +25,23 @@ const projects = [
     description: "Real-time smoke and fire detection using Python, OpenCV, and machine learning for early hazard alerts.",
     longDescription: "Built a computer vision system that detects smoke and fire in real-time video streams using OpenCV and a trained ML model. Sends instant alerts via email/SMS and logs incidents with timestamps for safety monitoring.",
     category: "ML",
-    tags: ["Python", "OpenCV", "Scikit-learn", "NumPy", "SMTP"],
+    tags: ["Python", "OpenCV", "NumPy", "SMTP"],
     color: "#ef4444",
     featured: true,
     github: null,
     demo: null,
-    
   },
   {
     id: 2,
     title: "Farmo Admin Dashboard",
     description: "Full-stack admin dashboard for farm management with real-time analytics, inventory tracking, and reporting.",
-    longDescription: "A comprehensive farm management system built with React, Node.js, and MongoDB. Features real-time crop tracking, inventory management, financial reporting, and a responsive dashboard with interactive charts.",
+    longDescription: "A comprehensive farm management system built with React, Tailwind CSS, RestAPIs, PostgreSQL, Django. Features real-time crop tracking, inventory management, financial reporting, and a responsive dashboard with interactive charts.",
     category: "Web Dev",
     tags: ["React", "Tailwind CSS", "Python Django", "PostgreSQL", "Postman"],
     color: "#10b981",
     featured: true,
-    github: "https://github.com/suxl7",
+    github: "https://github.com/suxl7/Farmo-Website.git",
     demo: null,
-    challenges: "Handling real-time data updates across multiple dashboard widgets without performance degradation.",
-    solution: "Used WebSocket connections with debounced state updates and memoized chart components.",
   },
   {
     id: 3,
@@ -52,28 +49,29 @@ const projects = [
     description: "This portfolio, built with Next.js, Framer Motion, and Tailwind CSS with a premium performance-focused UI.",
     longDescription: "A high-performance developer portfolio built with Next.js, Framer Motion entrance animations, and Tailwind CSS. Features dark/light mode, command palette, optimized pointer interactions, and a lightweight premium visual system.",
     category: "Web Dev",
-    tags: ["Next.js", "Framer Motion", "TypeScript", "Tailwind", "Performance"],
+    tags: ["Next.js", "Framer Motion","React", "TypeScript", "Tailwind CSS"],
     color: "#3b82f6",
     featured: true,
-    github: "https://github.com/suxl7",
+    github: "https://github.com/suxl7/Portfolio.git",
     demo: null,
-    challenges: "Balancing a polished visual identity with smooth scrolling and low CPU/GPU usage.",
-    solution: "Removed decorative WebGL, simplified continuous animation, and used CSS-first background and interaction patterns.",
   },
-  {
-    id: 4,
-    title: "Deloitte Cybersecurity Internship Tasks",
-    description: "Hands-on cybersecurity tasks including threat analysis, vulnerability assessment, and incident response reports.",
-    longDescription: "Completed Deloitte's virtual cybersecurity internship involving real-world security scenarios: threat modeling, log analysis with SIEM tools, vulnerability scanning, and writing professional security audit reports following NIST framework.",
-    category: "Security",
-    tags: ["SIEM", "NIST", "Threat Analysis", "Incident Response", "Security Auditing"],
-    color: "#8b5cf6",
-    featured: false,
-    github: null,
-    demo: null,
-    challenges: "Identifying attack vectors in complex enterprise network simulations with limited information.",
-    solution: "Applied structured threat modeling (STRIDE) and cross-referenced CVE databases for accurate assessments.",
-  },
+
+        //-----------------------------For adding future projects --------------------------------------//
+
+// {
+//   id: 4,
+//   title: "Your Project",
+//   description: "Short card description.",
+//   longDescription: "Detailed modal description.",
+//   category: "Web Dev", // must match a value in categories[]
+//   tags: ["React", "Node.js"],
+//   color: "#f59e0b",
+//   featured: true,
+//   github: "https://github.com/...",
+//   demo: null,
+// }
+
+
 ];
 
 function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClose: () => void }) {
@@ -115,17 +113,6 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
 
         <div className="p-6 space-y-6">
           <p className="text-slate-600 dark:text-zinc-300 leading-relaxed">{project.longDescription}</p>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-zinc-800/50 border border-slate-200 dark:border-zinc-700/50">
-              <h4 className="text-xs font-mono text-slate-400 dark:text-zinc-500 mb-2 uppercase tracking-wider">Challenge</h4>
-              <p className="text-sm text-slate-700 dark:text-zinc-300">{project.challenges}</p>
-            </div>
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-zinc-800/50 border border-slate-200 dark:border-zinc-700/50">
-              <h4 className="text-xs font-mono text-slate-400 dark:text-zinc-500 mb-2 uppercase tracking-wider">Solution</h4>
-              <p className="text-sm text-slate-700 dark:text-zinc-300">{project.solution}</p>
-            </div>
-          </div>
 
           <div>
             <h4 className="text-xs font-mono text-slate-400 dark:text-zinc-500 mb-3 uppercase tracking-wider">Technologies</h4>

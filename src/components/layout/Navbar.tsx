@@ -3,6 +3,10 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import { Menu, X, Home, User, Zap, FolderGit2, Briefcase, Award, Mail } from "lucide-react";
+import { ProfileLogo } from "@/components/ProfileLogo";
+import { useProfileLogoAnimation } from "@/hooks/useProfileLogoAnimation";
+
+
 
 const navLinks = [
   { href: "#hero", label: "Home", icon: Home },
@@ -15,6 +19,9 @@ const navLinks = [
 ];
 
 export function Navbar() {
+
+
+  const profileLogoProgress = useProfileLogoAnimation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
@@ -65,19 +72,23 @@ export function Navbar() {
         <nav className="relative max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
           {/* Logo — left */}
-          <motion.button
-            onClick={() => scrollTo("#hero")}
-            className="flex items-center group"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.96 }}
-            data-cursor-hover
-          >
+        {/* Logo — left */}
+            <div className="flex items-center gap-2">
+             <ProfileLogo progress={profileLogoProgress} variant="navbar" />
 
-            <span className="relative font-sharpie font-extrabold text-3xl tracking-tight bg-gradient-to-r from-blue-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent drop-shadow-[0_0_12px_rgba(139,92,246,0.5)] group-hover:drop-shadow-[0_0_18px_rgba(139,92,246,0.75)] transition-all duration-300">
-              Sushil
-              <span className="absolute -bottom-0.5 left-0 w-full h-[1.5px] rounded-full bg-gradient-to-r from-blue-400 via-violet-400 to-fuchsia-400 opacity-0 group-hover:opacity-70 scale-x-0 group-hover:scale-x-100 transition-all duration-300 origin-left" />
-            </span>
-          </motion.button>
+             <motion.button
+                onClick={() => scrollTo("#hero")}
+                className="flex items-center group"
+                whileHover={{ scale: 1.05 }}
+               whileTap={{ scale: 0.96 }}
+               data-cursor-hover
+                >
+               <span className="relative font-sharpie font-extrabold text-3xl tracking-tight bg-gradient-to-r from-blue-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent drop-shadow-[0_0_12px_rgba(139,92,246,0.5)] group-hover:drop-shadow-[0_0_18px_rgba(139,92,246,0.75)] transition-all duration-300">
+                 Sushil
+               <span className="absolute -bottom-0.5 left-0 w-full h-[1.5px] rounded-full bg-gradient-to-r from-blue-400 via-violet-400 to-fuchsia-400 opacity-0 group-hover:opacity-70 scale-x-0 group-hover:scale-x-100 transition-all duration-300 origin-left" />
+               </span>
+              </motion.button>
+            </div>
 
           {/* Desktop Nav — truly centered */}
           <div className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">

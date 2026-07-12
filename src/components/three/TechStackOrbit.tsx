@@ -143,14 +143,19 @@ export function TechStackOrbit() {
       aria-label="Core Tooling"
       className="relative mx-auto w-full max-w-6xl overflow-hidden rounded-3xl px-0 py-12 sm:py-16"
     >
-      <div className="pointer-events-none absolute inset-0 rounded-3xl border border-white/[0.07] bg-white/[0.02] backdrop-blur-xl" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-0 border-y border-white/[0.07] bg-black/[0.35] backdrop-blur-xl" aria-hidden="true" />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{ background: "linear-gradient(to right, rgba(0,0,0,0.6) 0%, transparent 30%, transparent 70%, rgba(0,0,0,0.6) 100%)" }}
+        aria-hidden="true"
+      />
       <div className="pointer-events-none absolute inset-0 rounded-3xl bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(59,130,246,0.10),transparent)]" aria-hidden="true" />
       <div className="pointer-events-none absolute inset-0 rounded-3xl bg-[radial-gradient(ellipse_60%_40%_at_50%_100%,rgba(99,102,241,0.07),transparent)]" aria-hidden="true" />
 
       <div className="relative mb-10 px-8 text-center sm:mb-12">
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">Core Tooling</p>
         <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">Tech Stack</h2>
-        <p className="mt-2 text-sm text-zinc-500">Tools and technologies I work with daily</p>
+        <p className="mt-2 text-sm text-zinc-500">Tools and technologies I work with</p>
       </div>
 
       <div className="relative flex flex-col gap-4">

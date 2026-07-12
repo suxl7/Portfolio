@@ -1,13 +1,13 @@
 "use client";
 
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedSection, AnimatedDiv } from "@/components/AnimatedSection";
 import { SkillCard3D } from "@/components/SkillCard3D";
 import { PremiumBackground } from "@/components/PremiumBackground";
 import Image from "next/image";
-import { MapPin, Code, Server, Cloud, Globe, Palette } from "lucide-react";
+import { CheckCircle2, XCircle, X } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
@@ -17,9 +17,85 @@ import { CertificationsSection } from "@/components/sections/CertificationsSecti
 import { EducationSection } from "@/components/sections/EducationSection";
 import { TechStackOrbit } from "@/components/three/TechStackOrbit";
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
-import { CustomCursor } from "@/components/ui/CustomCursor";
-import { CommandPalette, CommandPaletteTrigger } from "@/components/ui/CommandPalette";
+import EyeFollowButton from "@/components/ui/EyeFollowButton";
 import { ThemeProvider } from "@/components/providers/ThemeContext";
+
+function AboutTypewriter({ para1, para2 }: { para1: string; para2: string }) {
+  const fullText = para1 + "\n\n" + para2;
+  const chars = fullText.split("");
+  const total = chars.length;
+  const ref = useRef<HTMLParagraphElement>(null);
+  const [cursor, setCursor] = useState(-1);
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setStarted(true); },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!started) return;
+    setCursor(-1);
+    let i = 0;
+    const interval = window.setInterval(() => {
+      setCursor(i);
+      i++;
+      if (i >= total) {
+        clearInterval(interval);
+        window.setTimeout(() => setCursor(-1), 800);
+        window.setTimeout(() => {
+          setStarted(false);
+          window.setTimeout(() => setStarted(true), 50);
+        }, 900);
+      }
+    }, 35); // Adjusting the speed of typewriter cursor of About Me
+    return () => clearInterval(interval);
+  }, [started, total]);
+
+  const renderText = (text: string, offset: number) =>
+    text.split("").map((char, i) => {
+      const idx = offset + i;
+      const isActive = idx === cursor;
+      const isLit = idx <= cursor;
+      return (
+        <span
+          key={idx}
+          style={{
+            color: isLit ? "#e4e4e7" : "#3f3f46",
+            transition: "color 0.6s ease",
+            position: "relative",
+          }}
+        >
+          {char}
+          {isActive && (
+            <span style={{
+              color: "#22c55e",
+              fontWeight: 700,
+              position: "absolute",
+              right: "-3px",
+              top: "-2px",
+              fontSize: "1.3em",
+              lineHeight: 1,
+            }}>|</span>
+          )}
+        </span>
+      );
+    });
+
+  return (
+    <p ref={ref} className="antialiased md:subpixel-antialiased text-xl font-normal leading-relaxed font-aerial text-justify">
+      {renderText(para1, 0)}
+      <br /><br />
+      {renderText(para2, para1.length + 2)}
+    </p>
+  );
+}
 
 const Github = ({ className, style, ...props }: React.SVGProps<SVGSVGElement>) => (
   <svg className={className} style={style} viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -38,23 +114,23 @@ const skillCards = [
     description: "Building responsive, accessible UIs with modern React ecosystem and type-safe development",
     skills: ["React 19", "Next.js 15", "TypeScript", "Tailwind CSS", "Framer Motion", "Three.js", "React Hook Form"],
     color: "#3b82f6",
-    icon: <Code className="w-6 h-6" />,
+    icon: "/animatedIcon/ux-design.gif",
     index: 0,
   },
   {
     title: "Backend & APIs",
     description: "Designing scalable RESTful APIs, GraphQL servers, and real-time applications",
-    skills: ["Node.js", "Django", "PostgreSQL", "MongoDB" ],
+    skills: ["Node.js", "Django", "PostgreSQL" ],
     color: "#10b981",
-    icon: <Server className="w-6 h-6" />,
+    icon: "/animatedIcon/backend.gif",
     index: 1,
   },
   {
     title: "DevOps & Cloud",
     description: "Deploying and scaling applications with modern cloud infrastructure and CI/CD",
-    skills: ["AWS", "Vercel", "Docker", "Google Cloud", "Linux"],
+    skills: ["AWS", "Vercel", "Google Cloud", "Linux"],
     color: "#8b5cf6",
-    icon: <Cloud className="w-6 h-6" />,
+    icon: "/animatedIcon/cloud-computing.gif",
     index: 2,
   },
   {
@@ -62,15 +138,15 @@ const skillCards = [
     description: "Modern development tooling for productive and maintainable codebases",
     skills: ["GitHub", "VS Code", "Figma", "Postman", "Andoid Studio", "Antigravity" ],
     color: "#f59e0b",
-    icon: <Globe className="w-6 h-6" />,
+    icon: "/animatedIcon/software.gif",
     index: 3,
   },
   {
     title: "Creative & Design",
     description: "Crafting visual content and video productions with industry-standard creative tools",
-    skills: ["Adobe Illustrator", "DaVinci Resolve", "Graphic Design", "Video Editing", "Logo Design",],
+    skills: ["Adobe Illustrator", "DaVinci Resolve", "Graphic Design", "Video Editing"],
     color: "#ec4899",
-    icon: <Palette className="w-6 h-6" />,
+    icon: "/animatedIcon/paint-palette.gif",
     index: 4,
   },
 ];
@@ -101,10 +177,21 @@ const contactItems: ContactItem[] = [
   { imgIcon: "/icons/github.png", label: "GitHub",   value: "github.com/suxl7",            href: "https://github.com/suxl7",    color: "#8b5cf6" },
 ];
 
+interface FormErrors {
+  name?: string;
+  email?: string;
+  subject?: string;
+}
+
+interface ToastState {
+  show: boolean;
+  type: "success" | "error";
+  message: string;
+}
+
 export default function Home() {
   //  Email Configuration  //
 
-const [commandOpen, setCommandOpen] = useState(false);
 const [formData, setFormData] = useState({
   name: "",
   email: "",
@@ -112,11 +199,51 @@ const [formData, setFormData] = useState({
   message: "",
 });
 
+const [errors, setErrors] = useState<FormErrors>({});
+const [toast, setToast] = useState<ToastState>({
+  show: false,
+  type: "success",
+  message: "",
+});
+
 const [loading, setLoading] = useState(false);
+
+const showToast = (type: "success" | "error", message: string) => {
+  setToast({ show: true, type, message });
+  window.setTimeout(() => {
+    setToast((t) => ({ ...t, show: false }));
+  }, 4500);
+};
+
+const validateForm = () => {
+  const newErrors: FormErrors = {};
+
+  if (!formData.name.trim()) {
+    newErrors.name = "Please enter your name";
+  }
+
+  if (!formData.email.trim()) {
+    newErrors.email = "Please enter your email address";
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+    newErrors.email = "Please enter a valid email address";
+  }
+
+  if (!formData.subject.trim()) {
+    newErrors.subject = "Please enter a subject";
+  }
+
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
+
 const handleSubmit = async (
   e: React.FormEvent<HTMLFormElement>
 ) => {
   e.preventDefault();
+
+  if (!validateForm()) {
+    return;
+  }
 
   setLoading(true);
 
@@ -132,7 +259,7 @@ const handleSubmit = async (
     const data = await res.json();
 
     if (data.success) {
-      alert("Message sent successfully!");
+      showToast("success", "Message sent successfully! I'll get back to you soon.");
 
       setFormData({
         name: "",
@@ -140,30 +267,19 @@ const handleSubmit = async (
         subject: "",
         message: "",
       });
+      setErrors({});
     } else {
-      alert("Failed to send message.");
+      showToast("error", "Failed to send message. Please try again.");
     }
   } catch (error) {
     console.error(error);
-    alert("Something went wrong.");
+    showToast("error", "Something went wrong. Please try again.");
   }
 
   setLoading(false);
 };
 
  
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
-        setCommandOpen((o) => !o);
-      }
-      if (e.key === "Escape") setCommandOpen(false);
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
 
   return (
     <ThemeProvider
@@ -174,8 +290,68 @@ const handleSubmit = async (
     >
       <>
         <LoadingScreen />
-        <CustomCursor />
-        <CommandPalette isOpen={commandOpen} onClose={() => setCommandOpen(false)} />
+        {/* Toast Notification */}
+        <AnimatePresence>
+          {toast.show && (
+            <motion.div
+              initial={{ opacity: 0, y: -24, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -16, scale: 0.95 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="fixed top-6 left-1/2 -translate-x-1/2 z-[999] w-[92%] max-w-md"
+            >
+              <div
+                className={`flex items-start gap-3 rounded-xl border p-4 shadow-2xl backdrop-blur-md ${
+                  toast.type === "success"
+                    ? "bg-emerald-50/95 dark:bg-emerald-950/90 border-emerald-200 dark:border-emerald-800"
+                    : "bg-red-50/95 dark:bg-red-950/90 border-red-200 dark:border-red-800"
+                }`}
+              >
+                <div
+                  className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 ${
+                    toast.type === "success"
+                      ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
+                      : "bg-red-500/15 text-red-600 dark:text-red-400"
+                  }`}
+                >
+                  {toast.type === "success" ? (
+                    <CheckCircle2 className="w-5 h-5" />
+                  ) : (
+                    <XCircle className="w-5 h-5" />
+                  )}
+                </div>
+                <div className="flex-1 pt-0.5">
+                  <p
+                    className={`text-sm font-semibold ${
+                      toast.type === "success"
+                        ? "text-emerald-800 dark:text-emerald-200"
+                        : "text-red-800 dark:text-red-200"
+                    }`}
+                  >
+                    {toast.type === "success" ? "Message Sent" : "Something Went Wrong"}
+                  </p>
+                  <p
+                    className={`text-sm mt-0.5 ${
+                      toast.type === "success"
+                        ? "text-emerald-700/90 dark:text-emerald-300/90"
+                        : "text-red-700/90 dark:text-red-300/90"
+                    }`}
+                  >
+                    {toast.message}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setToast((t) => ({ ...t, show: false }))}
+                  className="flex-shrink-0 text-slate-400 hover:text-slate-600 dark:text-zinc-500 dark:hover:text-zinc-300 transition-colors"
+                  aria-label="Dismiss notification"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <div className="min-h-screen bg-zinc-50 dark:bg-[#09090b] font-sans relative overflow-x-hidden">
         <PremiumBackground />
@@ -205,24 +381,19 @@ const handleSubmit = async (
               <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
                 <div className="space-y-8">
                   <div className="space-y-4">
-                    <p className="text-xl text-slate-600 dark:text-zinc-300 leading-relaxed font-supreme text-justify">
-                      I'm Sushil Chaudhary, a recent Computer Engineering graduate who loves turning ideas into simple, meaningful digital experiences.
-                       I enjoy building modern web applications, exploring cloud technologies, and constantly learning something new along the way.
-                      <br />
-                      <br/>
-                      For me, development is more than writing code it's about solving real problems,
-                       paying attention to the little details, and creating products that people genuinely enjoy using.
-                       I'm always looking for opportunities to grow, take on new challenges, and build software that makes a difference.
-                    </p>
+                    <AboutTypewriter
+                      para1="I'm Sushil Chaudhary, a recent Computer Engineering graduate who loves turning ideas into simple, meaningful digital experiences. I enjoy building modern web applications, exploring cloud technologies, and constantly learning something new along the way."
+                      para2="For me, development is more than writing code it's about solving real problems, paying attention to the little details, and creating products that people genuinely enjoy using. I'm always looking for opportunities to grow, take on new challenges, and build software that makes a difference."
+                    />
                   </div>       
                 </div>
                 <div className="space-y-6">
                   <h3 className="text-2xl font-bold text-slate-900 dark:text-zinc-100">What I Do</h3>
                   <div className="space-y-4">
                     {[
-                      { title: "Frontend Development", desc: "Building responsive, accessible UIs with React, Next.js, TypeScript, and Tailwind CSS", icon: <Code className="w-6 h-6" />, color: "#3b82f6" },
-                      { title: "Backend Development", desc: "Designing RESTful APIs and microservices with Node.js, Python, and PostgreSQL", icon: <Server className="w-6 h-6" />, color: "#10b981" },
-                      { title: "Creative & Design", desc: "Graphic designing and video editing using Adobe Illustrator and DaVinci Resolve", icon: <Palette className="w-6 h-6" />, color: "#ec4899" },
+                      { title: "Frontend Development", desc: "Building responsive, accessible UIs with React, Next.js, TypeScript, and Tailwind CSS", icon: "/animatedIcon/ux-design.gif", color: "#3b82f6" },
+                      { title: "Backend Development", desc: "Designing RESTful APIs and microservices with Node.js, Python, and PostgreSQL", icon: "/animatedIcon/backend.gif", color: "#10b981" },
+                      { title: "Creative & Design", desc: "Graphic designing and video editing using Adobe Illustrator and DaVinci Resolve", icon: "/animatedIcon/paint-palette.gif", color: "#ec4899" },
                      
                       
                     ].map((item, i) => (
@@ -236,10 +407,16 @@ const handleSubmit = async (
                         whileHover={{ x: 5 }}
                       >
                         <motion.div
-                          className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
-                          style={{ background: `linear-gradient(135deg, ${item.color}20, ${item.color}40)`, border: `1px solid ${item.color}30` }}
+                          className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden"
+                          style={{}}
                         >
-                          <span style={{ color: item.color }}>{item.icon}</span>
+                          <span style={{ color: item.color }}>
+                            {typeof item.icon === "string" ? (
+                              <img src={item.icon} alt={item.title} className="h-full w-full object-cover rounded-lg" />
+                            ) : (
+                              item.icon
+                            )}
+                          </span>
                         </motion.div>
                         <div className="flex-1">
                           <h4 className="font-semibold text-slate-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{item.title}</h4>
@@ -324,6 +501,19 @@ const handleSubmit = async (
                 <p className="mt-6 text-lg text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto">
                   Have a project in mind or just want to say hi? I&apos;d love to hear from you.
                 </p>
+                <motion.div
+                  className="mt-8 flex justify-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+                >
+                  <EyeFollowButton
+                    text="Send me a message"
+                    blinking
+                    blinkInterval={2500}
+                  />
+                </motion.div>
               </div>
               <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
                 <div className="space-y-10">
@@ -378,8 +568,10 @@ const handleSubmit = async (
 
               {/* Email Sending Form */}
                 </div>
+
                 <form
   onSubmit={handleSubmit}
+  noValidate
   className="group relative bg-white dark:bg-white/[0.03] rounded-xl border border-slate-200/80 dark:border-white/[0.08] p-6 sm:p-8 space-y-6 overflow-hidden shadow-[0_2px_12px_rgba(15,23,42,0.07)] dark:shadow-none"
 >
   {/* Background Effect */}
@@ -398,14 +590,21 @@ const handleSubmit = async (
       <input
         type="text"
         id="name"
-        required
         value={formData.name}
-        onChange={(e) =>
-          setFormData({ ...formData, name: e.target.value })
-        }
-        className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+        onChange={(e) => {
+          setFormData({ ...formData, name: e.target.value });
+          if (errors.name) setErrors({ ...errors, name: undefined });
+        }}
+        className={`w-full px-4 py-3 rounded-xl border bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:border-transparent transition-all ${
+          errors.name
+            ? "border-red-400 dark:border-red-600 focus:ring-red-500"
+            : "border-slate-300 dark:border-zinc-700 focus:ring-blue-500"
+        }`}
         placeholder="Your Name"
       />
+      {errors.name && (
+        <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{errors.name}</p>
+      )}
     </div>
 
     <div>
@@ -417,16 +616,23 @@ const handleSubmit = async (
       </label>
 
       <input
-        type="email"
+        type="text"
         id="email"
-        required
         value={formData.email}
-        onChange={(e) =>
-          setFormData({ ...formData, email: e.target.value })
-        }
-        className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+        onChange={(e) => {
+          setFormData({ ...formData, email: e.target.value });
+          if (errors.email) setErrors({ ...errors, email: undefined });
+        }}
+        className={`w-full px-4 py-3 rounded-xl border bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:border-transparent transition-all ${
+          errors.email
+            ? "border-red-400 dark:border-red-600 focus:ring-red-500"
+            : "border-slate-300 dark:border-zinc-700 focus:ring-blue-500"
+        }`}
         placeholder="your@email.com"
       />
+      {errors.email && (
+        <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{errors.email}</p>
+      )}
     </div>
   </div>
 
@@ -442,14 +648,21 @@ const handleSubmit = async (
     <input
       type="text"
       id="subject"
-      required
       value={formData.subject}
-      onChange={(e) =>
-        setFormData({ ...formData, subject: e.target.value })
-      }
-      className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+      onChange={(e) => {
+        setFormData({ ...formData, subject: e.target.value });
+        if (errors.subject) setErrors({ ...errors, subject: undefined });
+      }}
+      className={`w-full px-4 py-3 rounded-xl border bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:border-transparent transition-all ${
+        errors.subject
+          ? "border-red-400 dark:border-red-600 focus:ring-red-500"
+          : "border-slate-300 dark:border-zinc-700 focus:ring-blue-500"
+      }`}
       placeholder="Project Inquiry"
     />
+    {errors.subject && (
+      <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{errors.subject}</p>
+    )}
   </div>
 
   {/* Message */}
@@ -473,68 +686,58 @@ const handleSubmit = async (
     />
   </div>
 
-  {/* Submit Button */}
-  <div className="relative z-20">
-    <button
-      type="submit"
-      disabled={loading}
-      className="group w-full flex items-center justify-center gap-3 py-4 px-6 rounded-xl
-                 bg-gradient-to-r from-blue-600 to-indigo-600
-                 hover:from-blue-500 hover:to-indigo-500
-                 text-white font-semibold text-lg
-                 transition-all duration-300
-                 hover:-translate-y-0.5 hover:scale-[1.01]
-                 hover:shadow-lg hover:shadow-blue-500/20
-                 active:scale-[0.98]
-                 disabled:opacity-60 disabled:cursor-not-allowed"
-    >
-      {loading ? (
-        <>
-          <svg
-            className="w-5 h-5 animate-spin"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <circle
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-              opacity="0.25"
-            />
+ {/* Submit Button */}
+<div className="relative z-20">
+  <motion.button
+    type="submit"
+    disabled={loading}
+    whileHover={{ scale: loading ? 1 : 1.01 }}
+    whileTap={{ scale: loading ? 1 : 0.98 }}
+    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+    className="group relative w-full flex items-center justify-center gap-3 py-4 px-6 rounded-xl
+               bg-gradient-to-b from-zinc-800 to-zinc-950
+               dark:from-zinc-100 dark:to-white
+               text-white dark:text-zinc-900
+               font-semibold text-base tracking-wide
+               border border-white/10 dark:border-black/5
+               shadow-[0_1px_0_0_rgba(255,255,255,0.15)_inset,0_8px_24px_-8px_rgba(0,0,0,0.5)]
+               dark:shadow-[0_1px_0_0_rgba(255,255,255,0.6)_inset,0_8px_24px_-8px_rgba(0,0,0,0.25)]
+               overflow-hidden
+               transition-shadow duration-300
+               hover:shadow-[0_1px_0_0_rgba(255,255,255,0.2)_inset,0_12px_32px_-8px_rgba(79,70,229,0.45)]
+               disabled:opacity-60 disabled:cursor-not-allowed"
+  >
+    {/* Shine sweep on hover */}
+    <span
+      className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full
+                 transition-transform duration-700 ease-out
+                 bg-gradient-to-r from-transparent via-white/10 to-transparent
+                 dark:via-black/10 skew-x-12"
+    />
 
-            <path
-              d="M22 12a10 10 0 0 0-10-10"
-              stroke="currentColor"
-              strokeWidth="4"
-              strokeLinecap="round"
-            />
-          </svg>
-
-          Sending...
-        </>
-      ) : (
-        <>
-          <span>Send Message</span>
-
-          <svg
-            className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M13 5l7 7-7 7M5 12h15"
-            />
-          </svg>
-        </>
-      )}
-    </button>
-  </div>
+    {loading ? (
+      <>
+        <svg className="w-5 h-5 animate-spin" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" opacity="0.25" />
+          <path d="M22 12a10 10 0 0 0-10-10" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+        </svg>
+        <span className="relative">Sending...</span>
+      </>
+    ) : (
+      <>
+        <span className="relative">Send Message</span>
+        <svg
+          className="relative w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 12h15" />
+        </svg>
+      </>
+    )}
+  </motion.button>
+</div>
 </form>
               </div>
             </div>
@@ -542,7 +745,6 @@ const handleSubmit = async (
         </main>
         </div>
         <Footer />
-        <CommandPaletteTrigger onClick={() => setCommandOpen(true)} />
       </div>
     </>
   </ThemeProvider>

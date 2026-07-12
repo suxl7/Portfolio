@@ -5,6 +5,10 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { Download, Mail, ChevronDown } from "lucide-react";
 import AnimatedStat from "@/components/AnimatedStat";
+import { ProfileLogo } from "@/components/ProfileLogo";
+import { useProfileLogoAnimation } from "@/hooks/useProfileLogoAnimation";
+
+
 
 const roles = [
   "Full Stack Web Developer",
@@ -170,6 +174,8 @@ function PremiumHeroVisual() {
 
 export function HeroSection() {
 
+  const profileLogoProgress = useProfileLogoAnimation();
+
 
   return (
     <section
@@ -191,25 +197,13 @@ export function HeroSection() {
             <div className="hero-item">
                 <p className="text-blue-500 dark:text-blue-400 font-mono text-sm tracking-widest uppercase mb-3 flex items-center gap-2.5">
                  Hi, I&apos;m
-                 <span className="relative inline-flex h-7 w-7 shrink-0">
 
-                   {/* glow */}
+                    {/* <-------------------------Profile Avatar ---------------------> */}
 
-                   <span
-                     className="absolute -inset-1 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 opacity-60 blur-md animate-glow-pulse"
-                     aria-hidden="true"
-                   />
 
-                   {/* avatar */}
+                 <ProfileLogo progress={profileLogoProgress} variant="hero" />
 
-                   <Image
-                     src="/images/profile.jpg"
-                      alt="Sushil"
-                      fill
-                      sizes="28px"
-                      className="relative rounded-full object-cover ring-2 ring-white/80 dark:ring-zinc-900/80"
-                              />
-                           </span>
+
                              Sushil
                           </p>
                      <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-zinc-900 dark:text-white leading-[1.04] tracking-tight">
@@ -296,12 +290,6 @@ export function HeroSection() {
 </div>
 </div>
 
-<div
-  className="absolute bottom-8 left-1/2 -translate-x-1/2 hero-item"
-  style={{ animationDelay: "1.55s" }}
->
-  <ChevronDown className="w-6 h-6 text-zinc-500 animate-bounce" />
-</div>
 
 </section>
   );

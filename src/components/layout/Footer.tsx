@@ -45,8 +45,6 @@ export function Footer() {
               </span>
             </motion.div>
             <p className="text-slate-500 dark:text-zinc-400 text-sm leading-relaxed">
-              Computer Engineering graduate passionate about building scalable applications,
-              exploring AI/ML and Cloud and creating impactful solutions.
             </p>
           </div>
 
@@ -103,22 +101,27 @@ export function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-slate-200 dark:border-zinc-800 pt-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-slate-500 dark:text-zinc-500 flex items-center gap-1">
-              © {new Date().getFullYear()} Sushil. Built with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> using Next.js, Tailwind CSS & Framer Motion
-            </p>
+       
+            <div className="border-t border-slate-200 dark:border-zinc-800 pt-8">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-4">
+                <p className="flex flex-wrap items-center justify-center sm:justify-start gap-x-1.5 gap-y-1 text-center sm:text-left text-sm text-slate-500 dark:text-zinc-500">            
+                  <span>© {new Date().getFullYear()} Sushil. All rights reserved.</span>
+                  <span className="hidden sm:inline text-slate-300 dark:text-zinc-700">•</span>
+                  <span className="inline-flex items-center gap-1">
+                    Built with <Heart className="w-3 h-3 shrink-0 text-red-500 fill-red-500" /> using Next.js, Tailwind CSS &amp; Framer Motion
+                  </span>
+                </p>
 
-            <motion.button
-              onClick={scrollToTop}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-zinc-700 text-sm text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-100 hover:border-slate-300 dark:hover:border-zinc-600 transition-all shadow-sm nav-link"
-              whileHover={{ y: -2 }}
-              data-cursor-hover
-            >
-              Back to top <ArrowUp className="w-4 h-4" />
-            </motion.button>
-          </div>
-        </div>
+                <motion.button
+                  onClick={scrollToTop}
+                  className="shrink-0 flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-zinc-700 text-sm text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-100 hover:border-slate-300 dark:hover:border-zinc-600 transition-all shadow-sm nav-link"
+                  whileHover={{ y: -2 }}
+                  data-cursor-hover
+                >
+                  Back to top <ArrowUp className="w-4 h-4" />
+               </motion.button>
+             </div>
+            </div>
       </div>
     </footer>
   );

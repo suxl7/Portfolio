@@ -359,44 +359,6 @@ body {
   border-radius: 3px;
 }
 
-/* Custom cursor */
-.cursor-dot {
-  width: 7px;
-  height: 7px;
-  background: #3b82f6;
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
-  transition: width 150ms ease, height 150ms ease, opacity 150ms ease;
-  mix-blend-mode: difference;
-}
-
-.cursor-ring {
-  width: 36px;
-  height: 36px;
-  border: 1.5px solid rgba(59, 130, 246, 0.6);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
-  transition: width 180ms ease, height 180ms ease, border-color 180ms ease, opacity 180ms ease;
-}
-
-.cursor-dot--hover {
-  width: 10px;
-  height: 10px;
-  opacity: 0.85;
-}
-
-.cursor-ring--hover {
-  width: 48px;
-  height: 48px;
-  border-color: rgba(59, 130, 246, 0.9);
-}
-
 /* Glass morphism */
 .glass {
   background: var(--glass-bg);

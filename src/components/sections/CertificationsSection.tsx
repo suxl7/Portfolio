@@ -17,13 +17,11 @@ const certifications = [
     color: "#86efac",
     logo: "/icons/Deloitte/Deloitte_idXbysKEDR_2.png",
     description:
-      "Completed Deloitte's virtual cybersecurity internship involving real-world security scenarios including threat modeling, log analysis using SIEM tools, vulnerability assessment, incident response, and professional security audit reporting based on the NIST Cybersecurity Framework.",
+      "Completed Deloitte's virtual cybersecurity internship involving real-world security scenarios including threat modeling, log analysis, vulnerability assessment, incident response, and professional security audit reporting.",
     skills: [
       "Threat Analysis",
-      "SIEM",
       "Incident Response",
       "Security Auditing",
-      "NIST Framework",
       "Vulnerability Assessment",
     ],
   },
@@ -38,10 +36,9 @@ const certifications = [
     color: "#f59e0b",
     logo: "/icons/icons8-aws-512.png",
     description:
-      "Successfully completed AWS SimuLearn: Cloud Computing Essentials, a hands-on cloud simulation focused on core AWS services. Demonstrated practical experience configuring Amazon S3 buckets, deploying static websites, managing IAM permissions, implementing cloud security best practices, and understanding cloud infrastructure fundamentals.",
+      "Successfully completed AWS SimuLearn: Cloud Computing Essentials, a hands-on cloud simulation focused on AWS services. Demonstrated practical experience configuring Amazon S3 buckets, deploying static websites, implementing cloud security best practices, and understanding cloud infrastructure fundamentals.",
     skills: [
       "Amazon S3",
-      "IAM",
       "Static Website Hosting",
       "Cloud Security",
       "AWS Console",
@@ -336,7 +333,7 @@ export function CertificationsSection() {
 
         {/* Featured cert cards */}
         <motion.div
-          className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8"
+          className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-start"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -367,7 +364,8 @@ export function CertificationsSection() {
                   <div className="flex-shrink-0">
                     <div
                       className="w-20 h-20 rounded-2xl flex items-center justify-center relative p-2"
-                      style={{ background: `linear-gradient(135deg, ${cert.color}20, ${cert.color}08)`, border: `1px solid ${cert.color}30` }}
+                     style={{ background: "white", border: `1px solid ${cert.color}30` }}
+
                     >
                       <Image
                         src={cert.logo}
@@ -459,26 +457,26 @@ export function CertificationsSection() {
                       <button
                         type="button"
                         onClick={(e) => { e.stopPropagation(); downloadFile(cert.downloadUrl, cert.fileName); }}
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-zinc-900 transition-all hover:scale-105 hover:shadow-lg active:scale-95"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold text-zinc-900 transition-all hover:scale-105 hover:shadow-lg active:scale-95"
                         style={{
                           background: `linear-gradient(135deg, ${cert.color}, ${cert.color}bb)`,
                           boxShadow: `0 4px 20px ${cert.color}30`,
                         }}
                       >
                         <Download className="w-4 h-4" />
-                        Download Certificate
+                        Download
                       </button>
                       <button
                         type="button"
                         onClick={(e) => { e.stopPropagation(); setSelectedCert(cert); }}
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-zinc-900 transition-all hover:scale-105 hover:shadow-lg active:scale-95"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold text-zinc-900 transition-all hover:scale-105 hover:shadow-lg active:scale-95"
                         style={{
                           background: `linear-gradient(135deg, ${cert.color}, ${cert.color}bb)`,
                           boxShadow: `0 4px 20px ${cert.color}30`,
                         }}
                       >
                         <Eye className="w-4 h-4" />
-                        View Certificate
+                        Preview
                       </button>
                     </div>
                   </div>
