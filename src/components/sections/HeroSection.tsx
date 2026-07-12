@@ -8,7 +8,7 @@ import AnimatedStat from "@/components/AnimatedStat";
 
 const roles = [
   "Full Stack Web Developer",
-  "UI|UX Designer",
+  "Graphic Designer",
   "Cloud Learner",
   "AI ML Enthusiast",
 
@@ -184,16 +184,40 @@ export function HeroSection() {
               <span className="text-slate-600 dark:text-zinc-400">Available for opportunities</span>
             </div>
 
+
+
+          {/* <----------------------------------Greetings----------------------------------> */}
+
             <div className="hero-item">
-              <p className="text-blue-500 dark:text-blue-400 font-mono text-sm tracking-widest uppercase mb-3">
-                Hi, I&apos;m Sushil
-              </p>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-zinc-900 dark:text-white leading-[1.04] tracking-tight">
-                Building Secure &
-                <br />
-                <span className="text-gradient">Scalable Software</span>
-              </h1>
-            </div>
+                <p className="text-blue-500 dark:text-blue-400 font-mono text-sm tracking-widest uppercase mb-3 flex items-center gap-2.5">
+                 Hi, I&apos;m
+                 <span className="relative inline-flex h-7 w-7 shrink-0">
+
+                   {/* glow */}
+
+                   <span
+                     className="absolute -inset-1 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 opacity-60 blur-md animate-glow-pulse"
+                     aria-hidden="true"
+                   />
+
+                   {/* avatar */}
+
+                   <Image
+                     src="/images/profile.jpg"
+                      alt="Sushil"
+                      fill
+                      sizes="28px"
+                      className="relative rounded-full object-cover ring-2 ring-white/80 dark:ring-zinc-900/80"
+                              />
+                           </span>
+                             Sushil
+                          </p>
+                     <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-zinc-900 dark:text-white leading-[1.04] tracking-tight">
+                    Building Secure &
+                   <br />
+                   <span className="text-gradient">Scalable Software</span>
+                    </h1>
+                     </div>
 
             <div className="hero-item text-xl sm:text-2xl text-zinc-600 dark:text-zinc-400 min-h-[2rem]">
               <TypingText />

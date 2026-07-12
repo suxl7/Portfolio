@@ -205,14 +205,14 @@ const handleSubmit = async (
               <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
                 <div className="space-y-8">
                   <div className="space-y-4">
-                    <p className="text-lg text-slate-600 dark:text-zinc-300 leading-relaxed">
-                      I&apos;m a passionate Full Stack Developer with experience building scalable web applications.
-                      I specialize in creating intuitive, performant, and accessible user experiences using modern technologies.
-                    </p>
-                    <p className="text-lg text-slate-600 dark:text-zinc-300 leading-relaxed">
-                      When I&apos;m not coding, you&apos;ll find me exploring new technologies, contributing to open-source projects,
-                      or sharing knowledge through technical writing. I believe in clean code, continuous learning,
-                      and building products that make a difference.
+                    <p className="text-xl text-slate-600 dark:text-zinc-300 leading-relaxed font-supreme text-justify">
+                      I'm Sushil Chaudhary, a recent Computer Engineering graduate who loves turning ideas into simple, meaningful digital experiences.
+                       I enjoy building modern web applications, exploring cloud technologies, and constantly learning something new along the way.
+                      <br />
+                      <br/>
+                      For me, development is more than writing code it's about solving real problems,
+                       paying attention to the little details, and creating products that people genuinely enjoy using.
+                       I'm always looking for opportunities to grow, take on new challenges, and build software that makes a difference.
                     </p>
                   </div>       
                 </div>
