@@ -220,7 +220,7 @@ export function EducationSection() {
 
                   {/* Card */}
                   <motion.div
-                    className="group relative rounded-2xl overflow-hidden border bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm cursor-pointer"
+                    className={`edu-card group relative rounded-2xl overflow-hidden border bg-white/80 dark:bg-zinc-900/80 cursor-pointer`}
                     animate={{
                       borderColor: isActive ? `${edu.color}50` : "rgba(161,161,170,0.2)",
                     }}
@@ -290,81 +290,74 @@ export function EducationSection() {
                       </div>
                     </div>
 
-                    {/* Expanded content */}
-                    <AnimatePresence initial={false}>
-                      {isActive && (
-                        <motion.div
-                          key="expanded"
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-                          className="overflow-hidden"
-                        >
-                          <div className="px-5 pb-6 pt-1 border-t" style={{ borderColor: `${edu.color}20` }}>
-                            {edu.highest && (
-                              <div className="sm:hidden mt-3 mb-1">
-                                <HighestBadge color={edu.color} />
-                              </div>
-                            )}
-
-                            <div className="flex flex-wrap items-center gap-2 mb-4 mt-3">
-                              <StatusBadge />
-                              <span className="flex items-center gap-1.5 text-xs text-zinc-500">
-                                <MapPin className="w-3.5 h-3.5" style={{ color: edu.color }} />
-                                {edu.location}
-                              </span>
+                    {/* Expanded content: CSS-driven grid row toggle to avoid animating height */}
+                    <div
+                      className="grid overflow-hidden transition-[grid-template-rows] duration-[350ms] ease-[cubic-bezier(0.4,0,0.2,1)]"
+                      style={{ gridTemplateRows: isActive ? "1fr" : "0fr" }}
+                    >
+                      <div className="min-h-0 overflow-hidden">
+                        <div className="px-5 pb-6 pt-1 border-t" style={{ borderColor: `${edu.color}20` }}>
+                          {edu.highest && (
+                            <div className="sm:hidden mt-3 mb-1">
+                              <HighestBadge color={edu.color} />
                             </div>
+                          )}
 
-                            {/* Transcript-style fact grid */}
-                            <div className="mb-5">
-                              <FactGrid facts={edu.facts} color={edu.color} />
-                            </div>
+                          <div className="flex flex-wrap items-center gap-2 mb-4 mt-3">
+                            <StatusBadge />
+                            <span className="flex items-center gap-1.5 text-xs text-zinc-500">
+                              <MapPin className="w-3.5 h-3.5" style={{ color: edu.color }} />
+                              {edu.location}
+                            </span>
+                          </div>
 
-                            {edu.description && (
-                              <p
-                                className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-5 pl-3 border-l-2"
-                                style={{ borderColor: `${edu.color}50` }}
-                              >
-                                {edu.description}
-                              </p>
-                            )}
+                          {/* Transcript-style fact grid */}
+                          <div className="mb-5">
+                            <FactGrid facts={edu.facts} color={edu.color} />
+                          </div>
+
+                          {edu.description && (
+                            <p
+                              className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-5 pl-3 border-l-2"
+                              style={{ borderColor: `${edu.color}50` }}
+                            >
+                              {edu.description}
+                            </p>
+                          )}
 
                           {/* Coursework */}
-{edu.coursework !== undefined && (
-  <div>
-    <h4 className="flex items-center gap-2 text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider mb-3">
-      <BookOpen className="w-3.5 h-3.5" style={{ color: edu.color }} />
-      Relevant Coursework
-    </h4>
-    {edu.coursework.length > 0 ? (
-      <div className="flex flex-wrap gap-2">
-        {edu.coursework.map((course, j) => (
-          <motion.span
-            key={course}
-            className="px-3 py-1.5 rounded-full text-xs font-medium border"
-            style={{ background: `${edu.color}08`, color: edu.color, borderColor: `${edu.color}25` }}
-            initial={{ opacity: 0, scale: 0.88 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: j * 0.04, duration: 0.2 }}
-            whileHover={{ scale: 1.06, background: `${edu.color}18` }}
-          >
-            {course}
-          </motion.span>
-        ))}
-      </div>
-    ) : (
-      <span className="inline-block px-3 py-1.5 rounded-full text-xs italic text-zinc-400 dark:text-zinc-600 border border-dashed border-zinc-300 dark:border-zinc-700">
-        Coursework details coming soon
-      </span>
-    )}
-  </div>
-)}
-                
+                          {edu.coursework !== undefined && (
+                            <div>
+                              <h4 className="flex items-center gap-2 text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider mb-3">
+                                <BookOpen className="w-3.5 h-3.5" style={{ color: edu.color }} />
+                                Relevant Coursework
+                              </h4>
+                              {edu.coursework.length > 0 ? (
+                                <div className="flex flex-wrap gap-2">
+                                  {edu.coursework.map((course, j) => (
+                                    <motion.span
+                                      key={course}
+                                      className="px-3 py-1.5 rounded-full text-xs font-medium border"
+                                      style={{ background: `${edu.color}08`, color: edu.color, borderColor: `${edu.color}25` }}
+                                      initial={{ opacity: 0, scale: 0.88 }}
+                                      animate={{ opacity: 1, scale: 1 }}
+                                      transition={{ delay: j * 0.04, duration: 0.2 }}
+                                      whileHover={{ scale: 1.06, background: `${edu.color}18` }}
+                                    >
+                                      {course}
+                                    </motion.span>
+                                  ))}
+                                </div>
+                              ) : (
+                                <span className="inline-block px-3 py-1.5 rounded-full text-xs italic text-zinc-400 dark:text-zinc-600 border border-dashed border-zinc-300 dark:border-zinc-700">
+                                  Coursework details coming soon
+                                </span>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
                     </div>
-                        </motion.div>
-                       )}
-                    </AnimatePresence>
                   </motion.div>
                 </motion.div>
               );

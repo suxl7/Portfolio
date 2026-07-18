@@ -309,6 +309,46 @@ body {
   transform: translate3d(0, 0, 0);
   will-change: transform;
 }
+  /* Reduce heavy GPU work on small/mobile viewports: disable animated blurs */
+  @media (max-width: 768px) {
+    .premium-background__mesh,
+    .premium-background__glow {
+      animation: none !important;
+      filter: none !important;
+      opacity: 0.6;
+      will-change: auto;
+    }
+  }
+
+  /* Typewriter reveal (CSS-driven, avoids JS re-renders) */
+  .typewriter { white-space: pre-wrap; }
+  .typewriter .type-char {
+    color: #3f3f46;
+    display: inline;
+    line-height: inherit;
+    vertical-align: baseline;
+    animation-name: tw-reveal;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease;
+    animation-play-state: paused;
+  }
+  .typewriter.tw-play .type-char { animation-play-state: running; }
+
+  @keyframes tw-reveal {
+    from { color: #3f3f46; }
+    to { color: #e4e4e7; }
+  }
+
+  .typing-cursor::after {
+    content: "|";
+    animation: blink 1s step-end infinite;
+    color: #22c55e;
+    display: inline-block;
+    margin-left: 0.2rem;
+    font-size: 1.25em;
+    line-height: 1;
+    transform: translateY(-0.15em);
+  }
 
 .premium-background__glow--one {
   top: 18%;
@@ -386,6 +426,40 @@ body {
   background: rgba(255,255,255,0.03);
   border-color: rgba(255,255,255,0.08);
   box-shadow: none;
+}
+
+/* Education card performance tweaks */
+.edu-card {
+  transition: box-shadow 200ms ease, border-color 200ms ease, transform 200ms ease;
+  will-change: transform;
+}
+
+/* Reduce heavy visuals on touch/low-end devices */
+@media (pointer: coarse), (max-width: 768px) {
+  .edu-card {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Disable hover transforms and glows on touch devices */
+  .edu-card:hover, .edu-card:active, .edu-card:focus {
+    transform: none !important;
+  }
+
+  /* Make the expand instant on mobile to avoid layout work during scroll */
+  .edu-card .grid {
+    transition-duration: 0ms !important;
+  }
+}
+
+/* Prefer reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  .edu-card,
+  .edu-card * {
+    transition: none !important;
+    animation: none !important;
+  }
 }
 
 /* Text gradient */

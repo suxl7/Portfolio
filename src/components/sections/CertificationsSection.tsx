@@ -51,7 +51,7 @@ const certifications = [
     downloadUrl: "/certificates/Cloud Quest AWS Cloud Practitioner.pdf",
     fileName: "Cloud Quest AWS Cloud Practitioner.pdf",
     color: "#f59e0b",
-    logo: "/icons/icons8-aws-512.png",
+    logo: "/icons/AWS/aws-cloud-quest-cloud-practitioner-training-badge.png",
     description:
       "Successfully completed AWS Cloud Quest: Cloud Practitioner, a hands-on, role-based learning program that builds foundational AWS cloud skills through real-world solution labs and interactive scenarios. Gained practical experience with core AWS services, including compute, networking, storage, and security, while developing job-ready cloud competencies through guided assignments and knowledge assessments.",
     skills: [
@@ -214,7 +214,10 @@ function CertLightbox({ cert, onClose }: { cert: Certification; onClose: () => v
             exit={{ opacity: 0, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 280, damping: 28 }}
           >
-            <PdfViewer src={cert.downloadUrl} title={`${cert.title} certificate PDF`} />
+            <PdfViewer
+              src={cert.downloadUrl}
+              title={`${cert.title} certificate PDF`}
+            />
           </motion.div>
         </div>
 
@@ -295,15 +298,15 @@ export function CertificationsSection() {
                   <div className="flex flex-col sm:flex-row sm:items-start gap-6">
                     <div className="flex-shrink-0">
                       <div
-                        className="w-20 h-20 rounded-2xl flex items-center justify-center relative p-2"
+                        className="w-20 h-20 rounded-2xl flex items-center justify-center relative p-1"
                         style={{ background: "white", border: `1px solid ${cert.color}30` }}
                       >
                         <Image
                           src={cert.logo}
                           alt={cert.issuer}
-                          width={64}
-                          height={64}
-                          className="object-contain"
+                          width={72}
+                          height={72}
+                          className="object-contain w-full h-full"
                           style={{ height: "auto" }}
                         />
                         <div className="absolute inset-0 rounded-2xl animate-ping opacity-20" style={{ background: cert.color }} />

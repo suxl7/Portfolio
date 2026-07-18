@@ -12,8 +12,8 @@ import { useProfileLogoAnimation } from "@/hooks/useProfileLogoAnimation";
 
 const roles = [
   "Full Stack Web Developer",
-  "Graphic Designer",
-  "Cloud Learner",
+  "UI/UX Designer",
+  "Aspiring Cloud Engineer",
   "AI ML Enthusiast",
 
 ];
@@ -22,7 +22,7 @@ const stats = [
   { value: 4, suffix: "+", label: "Years Learning" },
   { value: 3, suffix: "+", label: "Projects Built" },
   { value: 10, suffix: "+", label: "Technologies" },
-  { value: 2, suffix: "", label: "Certifications" },
+  { value: 3, suffix: "", label: "Certifications" },
 ];
 
 
@@ -207,9 +207,9 @@ export function HeroSection() {
                              Sushil
                           </p>
                      <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-zinc-900 dark:text-white leading-[1.04] tracking-tight">
-                    Building Secure &
+                    Computer
                    <br />
-                   <span className="text-gradient">Scalable Software</span>
+                   <span className="text-gradient">Engineer</span>
                     </h1>
                      </div>
 
@@ -221,7 +221,7 @@ export function HeroSection() {
            className="hero-item text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-3xl text-justify"
             >
              Passionate about building secure, scalable, and interactive digital experiences.
-            Exploring the intersection of Software Development, and Cloud Computing.
+            Exploring the intersection of software development, and cloud computing.
               </p>
 
             <div className="hero-item flex flex-col sm:flex-row gap-4">
@@ -294,3 +294,6 @@ export function HeroSection() {
 </section>
   );
 }
+
+
+

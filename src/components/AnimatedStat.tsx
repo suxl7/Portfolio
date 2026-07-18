@@ -1,17 +1,7 @@
 "use client";
 
-import {
-  animate,
-  motion,
-  useInView,
-  useMotionValue,
-  useTransform,
-} from "framer-motion";
-
-import {
-  useEffect,
-  useRef,
-} from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 interface AnimatedStatProps {
   value: number;
@@ -24,35 +14,55 @@ export default function AnimatedStat({
   suffix = "",
   label,
 }: AnimatedStatProps) {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement | null>(null);
+  const numRef = useRef<HTMLSpanElement | null>(null);
+  const shouldReduce = useReducedMotion();
 
   const isInView = useInView(ref, {
     amount: 0.5,
     once: false,
   });
 
-  const count = useMotionValue(0);
-
-  const rounded = useTransform(count, (latest) =>
-    Math.round(latest)
-  );
-
+  // rAF-driven counter that updates DOM directly for smoothness on low-end devices
   useEffect(() => {
-    if (isInView) {
-      const controls = animate(count, value, {
-        duration: 1.8,
-        ease: "easeOut",
-      });
+    if (!numRef.current) return;
+    let rafId: number | null = null;
+    let start: number | null = null;
+    const duration = shouldReduce ? 300 : 1200; // shorter when reduced motion
 
-      return controls.stop;
-    } else {
-      count.set(0);
+    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    // Full rAF loop for 60fps updates; minimize layout by using tabular digits
+    function step(timestamp: number) {
+      if (start === null) start = timestamp;
+      const elapsed = timestamp - start;
+      const t = Math.min(1, elapsed / duration);
+      const eased = easeOutCubic(t);
+      const current = Math.round(eased * value);
+
+      // update DOM every frame
+      numRef.current!.textContent = String(current) + (suffix || "");
+
+      if (t < 1) {
+        rafId = requestAnimationFrame(step);
+      }
     }
-  }, [count, isInView, value]);
+
+    if (isInView) {
+      rafId = requestAnimationFrame(step);
+    } else {
+      numRef.current.textContent = "0" + (suffix || "");
+      if (rafId) cancelAnimationFrame(rafId);
+    }
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [isInView, value, suffix, shouldReduce]);
 
   return (
     <motion.div
-      ref={ref}
+      ref={ref as any}
       initial={{
         opacity: 0,
         y: 30,
@@ -85,13 +95,19 @@ export default function AnimatedStat({
 
       {/* Card */}
 
-      <div className="relative rounded-2xl border border-slate-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/70 backdrop-blur-xl p-6 transition-all duration-300 group-hover:border-blue-500/40 shadow-[0_1px_4px_rgba(15,23,42,0.06)] dark:shadow-none">
+      <div className="relative rounded-2xl border border-slate-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-900/95 sm:backdrop-blur-xl sm:bg-white/80 sm:dark:bg-zinc-900/70 p-6 transition-all duration-300 group-hover:border-blue-500/40 shadow-[0_1px_4px_rgba(15,23,42,0.06)] dark:shadow-none">
 
-        <motion.h3
-          className="text-3xl font-black text-blue-600 dark:text-blue-400"
-        >
-          <motion.span>{rounded}</motion.span>
-          {suffix}
+        <motion.h3 className="text-3xl font-black text-blue-600 dark:text-blue-400">
+          <span
+            ref={numRef}
+            style={{
+              display: "inline-block",
+              minWidth: `${String(value).length}ch`,
+              fontVariantNumeric: "tabular-nums",
+              transform: "translateZ(0)",
+              contain: "paint",
+            }}
+          />
         </motion.h3>
 
         <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">

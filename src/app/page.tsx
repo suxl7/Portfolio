@@ -17,7 +17,7 @@ import { CertificationsSection } from "@/components/sections/CertificationsSecti
 import { EducationSection } from "@/components/sections/EducationSection";
 import { TechStackOrbit } from "@/components/three/TechStackOrbit";
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
-import EyeFollowButton from "@/components/ui/EyeFollowButton";
+
 import { ThemeProvider } from "@/components/providers/ThemeContext";
 
 function AboutTypewriter({ para1, para2 }: { para1: string; para2: string }) {
@@ -25,74 +25,63 @@ function AboutTypewriter({ para1, para2 }: { para1: string; para2: string }) {
   const chars = fullText.split("");
   const total = chars.length;
   const ref = useRef<HTMLParagraphElement>(null);
-  const [cursor, setCursor] = useState(-1);
-  const [started, setStarted] = useState(false);
+
+  // Timing constants (matches prior rhythm but handled in CSS)
+  const CHAR_DELAY = 35; // ms per char stagger
+  const REVEAL_DURATION = 120; // ms for each char reveal
+  const totalDuration = CHAR_DELAY * total + REVEAL_DURATION;
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    let startTimer: number | null = null;
+    let restartTimer: number | null = null;
+
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setStarted(true); },
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        if (el.classList.contains("tw-play")) return; // already playing
+
+        el.classList.add("tw-play");
+
+        // After the full reveal + a small pause, remove and re-add to emulate original replay timing
+        startTimer = window.setTimeout(() => {
+          el.classList.remove("tw-play");
+          restartTimer = window.setTimeout(() => el.classList.add("tw-play"), 50);
+        }, totalDuration + 900);
+      },
       { threshold: 0.3 }
     );
+
     observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!started) return;
-    setCursor(-1);
-    let i = 0;
-    const interval = window.setInterval(() => {
-      setCursor(i);
-      i++;
-      if (i >= total) {
-        clearInterval(interval);
-        window.setTimeout(() => setCursor(-1), 800);
-        window.setTimeout(() => {
-          setStarted(false);
-          window.setTimeout(() => setStarted(true), 50);
-        }, 900);
-      }
-    }, 35); // Adjusting the speed of typewriter cursor of About Me
-    return () => clearInterval(interval);
-  }, [started, total]);
-
-  const renderText = (text: string, offset: number) =>
-    text.split("").map((char, i) => {
-      const idx = offset + i;
-      const isActive = idx === cursor;
-      const isLit = idx <= cursor;
-      return (
-        <span
-          key={idx}
-          style={{
-            color: isLit ? "#e4e4e7" : "#3f3f46",
-            transition: "color 0.6s ease",
-            position: "relative",
-          }}
-        >
-          {char}
-          {isActive && (
-            <span style={{
-              color: "#22c55e",
-              fontWeight: 700,
-              position: "absolute",
-              right: "-3px",
-              top: "-2px",
-              fontSize: "1.3em",
-              lineHeight: 1,
-            }}>|</span>
-          )}
-        </span>
-      );
-    });
+    return () => {
+      observer.disconnect();
+      if (startTimer) clearTimeout(startTimer);
+      if (restartTimer) clearTimeout(restartTimer);
+    };
+  }, [total, totalDuration]);
 
   return (
-    <p ref={ref} className="antialiased md:subpixel-antialiased text-xl font-normal leading-relaxed font-aerial text-justify">
-      {renderText(para1, 0)}
-      <br /><br />
-      {renderText(para2, para1.length + 2)}
+    <p
+      ref={ref}
+      className="typewriter antialiased md:subpixel-antialiased text-xl font-normal leading-relaxed font-aerial text-justify"
+    >
+      {chars.map((char, idx) => {
+        if (char === "\n") return <br key={`br-${idx}`} />;
+        return (
+          <span
+            key={idx}
+            className="type-char"
+            style={{
+              animationDelay: `${idx * CHAR_DELAY}ms`,
+              animationDuration: `${REVEAL_DURATION}ms`,
+            }}
+          >
+            {char}
+          </span>
+        );
+      })}
     </p>
   );
 }
@@ -382,8 +371,8 @@ const handleSubmit = async (
                 <div className="space-y-8">
                   <div className="space-y-4">
                     <AboutTypewriter
-                      para1="I'm Sushil Chaudhary, a recent Computer Engineering graduate who loves turning ideas into simple, meaningful digital experiences. I enjoy building modern web applications, exploring cloud technologies, and constantly learning something new along the way."
-                      para2="For me, development is more than writing code it's about solving real problems, paying attention to the little details, and creating products that people genuinely enjoy using. I'm always looking for opportunities to grow, take on new challenges, and build software that makes a difference."
+                      para1="I'm Sushil Chaudhary, a computer engineering graduate who enjoys building clean web apps and learning new cloud tools. I like creating simple digital experiences that people can use easily."
+                      para2="I focus on solving real problems, paying attention to the small details, and making software that feels useful. I am always open to new challenges and ways to improve."
                     />
                   </div>       
                 </div>
@@ -501,19 +490,7 @@ const handleSubmit = async (
                 <p className="mt-6 text-lg text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto">
                   Have a project in mind or just want to say hi? I&apos;d love to hear from you.
                 </p>
-                <motion.div
-                  className="mt-8 flex justify-center"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
-                >
-                  <EyeFollowButton
-                    text="Send me a message"
-                    blinking
-                    blinkInterval={2500}
-                  />
-                </motion.div>
+
               </div>
               <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
                 <div className="space-y-10">

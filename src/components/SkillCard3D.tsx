@@ -23,6 +23,7 @@ export const SkillCard3D = memo(function SkillCard3D({
   const cardRef = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
 
+
   // Raw pointer position within the card (px)
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -56,6 +57,8 @@ export const SkillCard3D = memo(function SkillCard3D({
     mouseX.set(0.5);
     mouseY.set(0.5);
   }
+
+  
 
   return (
     <motion.div
