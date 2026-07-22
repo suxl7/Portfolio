@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  allowedDevOrigins: ['192.168.1.78'],
+  allowedDevOrigins: ['192.168.1.66', '192.168.1.78'],
   images: {
     remotePatterns: [
       {
@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     mdxRs: true,
+    optimizeCss: true,
+    optimizePackageImports: [
+      'framer-motion',
+      'lucide-react',
+    ],
   },
   async headers() {
     return [

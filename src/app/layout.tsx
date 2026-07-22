@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
+import { ThemeProviderWrapper } from "@/components/providers/ThemeProviderWrapper"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -78,22 +79,16 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-[#F8FAFC] dark:bg-[#09090b] text-[#0F172A] dark:text-zinc-100">
-        {children}
+      <body className="min-h-full flex flex-col bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+        <ThemeProviderWrapper>
+          {children}
+        </ThemeProviderWrapper>
 
         {/* Vercel Analytics    */}
-
         <Analytics />  
 
         {/* Speed insights using vercel */}
-
         <SpeedInsights/>       
-
-
-        
-
-
-
       </body>
     </html>
   );

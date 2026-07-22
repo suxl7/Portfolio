@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { memo, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
 
@@ -120,7 +121,7 @@ export const SkillCard3D = memo(function SkillCard3D({
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
               {typeof icon === "string" ? (
-                <img src={icon} alt="skill icon" className="h-full w-full object-cover rounded-lg" />
+                <Image src={icon} alt="skill icon" width={56} height={56} className="h-full w-full object-cover rounded-lg" />
               ) : (
                 <div style={{ color }}>{icon}</div>
               )}
